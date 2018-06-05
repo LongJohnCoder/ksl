@@ -308,23 +308,28 @@ inline void ksl_nxpy_ssf(const ksl_screwf_t* restrict s1i,
 inline void ksl_add_sst(const ksl_screw_t* restrict si1,
                         const ksl_screw_t* restrict si2,
                         ksl_screw_t* restrict so) {
-  ksl_screw_copy(si1, so);
-  so->at[0] += si2->at[0];
-  so->at[1] += si2->at[1];
-  so->at[2] += si2->at[2];
+  ksl_screw_t s;
+  ksl_screw_copy(si1, &s);
+  s.at[0] += si2->at[0];
+  s.at[1] += si2->at[1];
+  s.at[2] += si2->at[2];
+  ksl_screw_copy(&s, so);
 }
 
 inline void ksl_add_sstf(const ksl_screwf_t* restrict si1,
                          const ksl_screwf_t* restrict si2,
                          ksl_screwf_t* restrict so) {
-  ksl_screwf_copy(si1, so);
-  so->at[0] += si2->at[0];
-  so->at[1] += si2->at[1];
-  so->at[2] += si2->at[2];
+  ksl_screwf_t s;
+  ksl_screwf_copy(si1, &s);
+  s.at[0] += si2->at[0];
+  s.at[1] += si2->at[1];
+  s.at[2] += si2->at[2];
+  ksl_screwf_copy(&s, so);
 }
 
 inline void ksl_htx(const ksl_SE3_t* restrict Di, ksl_screw_t* restrict ho) {
   ksl_vec3_copy(&Di->R.v0, &ho->lin);
+  memset(&ho->ang, 0, 3 * sizeof(double));
 }
 
 inline void ksl_htxf(const ksl_SE3f_t* restrict Di, ksl_screwf_t* restrict ho) {

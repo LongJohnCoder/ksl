@@ -1,10 +1,13 @@
 #include <config.h>
 
 #include <check.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "coscrew.h"
 #include "screw.h"
+
+static FILE* dbg;
 
 START_TEST(test_screw_create) {
   ksl_screw_t s = {{1.0, 2.0, 3.0, 4.0, 5.0, 6.0}};
@@ -385,12 +388,26 @@ START_TEST(test_add_sstf) {
   ksl_screwf_t s1 = {{1.0, 2.0, 3.0, 4.0, 5.0, 6.0}};
   ksl_screwf_t s2 = {{10.0, 20.0, 30.0, 0.0, 0.0, 0.0}};
   ksl_add_sstf(&s1, &s2, &s2);
-  ck_assert_float_eq_tol(s2.m0, 1.0, 1.e-6);
+  ck_assert_float_eq_tol(s2.m0, 11.0, 1.e-6);
   ck_assert_float_eq_tol(s2.m1, 22.0, 1.e-6);
   ck_assert_float_eq_tol(s2.m2, 33.0, 1.e-6);
   ck_assert_float_eq_tol(s2.m3, 4.0, 1.e-6);
   ck_assert_float_eq_tol(s2.m4, 5.0, 1.e-6);
   ck_assert_float_eq_tol(s2.m5, 6.0, 1.e-6);
+}
+END_TEST
+
+START_TEST(test_htx) {
+  ksl_SE3_t D;
+  D = ksl_SE3(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0);
+  ksl_screw_t s = {{1.0, 2.0, 3.0, 4.0, 5.0, 6.0}};
+  ksl_htx(&D, &s);
+  ck_assert_double_eq_tol(s.m0, 1.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m1, 2.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m2, 3.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m3, 0.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m4, 0.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m5, 0.0, 1.e-9);
 }
 END_TEST
 
@@ -442,12 +459,14 @@ Suite* screw_suite(void) {
   tcase_add_test(tc_core, test_nxpy_ssf);
   tcase_add_test(tc_core, test_add_sst);
   tcase_add_test(tc_core, test_add_sstf);
+  tcase_add_test(tc_core, test_htx);
 
   suite_add_tcase(s, tc_core);
   return s;
 }
 
 int main(void) {
+  dbg = fopen("test_debug.txt", "wa");
   int number_failed;
   Suite* s = screw_suite();
   SRunner* sr = srunner_create(s);
@@ -455,5 +474,6 @@ int main(void) {
   srunner_run_all(sr, CK_NORMAL);
   number_failed = srunner_ntests_failed(sr);
   srunner_free(sr);
+  fclose(dbg);
   return (number_failed == 0) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
