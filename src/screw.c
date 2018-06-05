@@ -1,9 +1,11 @@
+#include <math.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "coscrew.h"
 #include "matrix.h"
 #include "screw.h"
+#include "vector.h"
 
 /*!
 @brief allocate n double precision screw quantities
@@ -22,12 +24,52 @@ ksl_screwf_t* ksl_screwf_alloc(const int n) {
 /*!
 @todo
 */
-inline double ksl_screw_norm(const ksl_screw_t* restrict v);
+inline double ksl_screw_norm(const ksl_screw_t* restrict v) {
+  const double eps = 1e-9;
+  if((fabs(v->ang.x) < eps) && (fabs(v->ang.y) < eps) &&
+     (fabs(v->ang.z) < eps)) {
+    return (ksl_vec3_l2norm(&v->lin));
+  } else {
+    return (ksl_vec3_l2norm(&v->ang));
+  }
+}
 
 /*!
 @todo
 */
-inline float ksl_screwf_norm(const ksl_screwf_t* restrict v);
+inline float ksl_screwf_norm(const ksl_screwf_t* restrict v) {
+  const float eps = 1e-6;
+  if((fabs(v->ang.x) < eps) && (fabs(v->ang.y) < eps) &&
+     (fabs(v->ang.z) < eps)) {
+    return (ksl_vec3f_l2norm(&v->lin));
+  } else {
+    return (ksl_vec3f_l2norm(&v->ang));
+  }
+}
+
+inline void ksl_screw_normalize(ksl_screw_t* v) {
+  const double eps = 1e-9;
+  if((fabs(v->ang.x) < eps) && (fabs(v->ang.y) < eps) &&
+     (fabs(v->ang.z) < eps)) {
+    ksl_vec3_normalize(&v->lin);
+  } else {
+    double ang_inv_norm = 1.0 / ksl_vec3_l2norm(&v->ang);
+    ksl_product_av(ang_inv_norm, &v->lin, &v->lin);
+    ksl_product_av(ang_inv_norm, &v->ang, &v->ang);
+  }
+}
+
+inline void ksl_screwf_normalize(ksl_screwf_t* v) {
+  const float eps = 1e-6;
+  if((fabs(v->ang.x) < eps) && (fabs(v->ang.y) < eps) &&
+     (fabs(v->ang.z) < eps)) {
+    ksl_vec3f_normalize(&v->lin);
+  } else {
+    float ang_inv_norm = 1.0 / ksl_vec3f_l2norm(&v->ang);
+    ksl_product_avf(ang_inv_norm, &v->lin, &v->lin);
+    ksl_product_avf(ang_inv_norm, &v->ang, &v->ang);
+  }
+}
 
 /*!
 @brief compute double precision dot product between a coscrew and screw
@@ -166,76 +208,85 @@ inline void ksl_product_as(const double k, const ksl_screw_t* restrict si,
   }
 }
 
-void ksl_product_asf(const float k, const ksl_screwf_t* restrict si,
-                     ksl_screwf_t* restrict so) {
+inline void ksl_product_asf(const float k, const ksl_screwf_t* restrict si,
+                            ksl_screwf_t* restrict so) {
   for(int i = 0; i < 6; i++) {
     so->at[i] = k * si->at[i];
   }
 }
 
-void ksl_add_ss(const ksl_screw_t* restrict s1i,
-                const ksl_screw_t* restrict s2i, ksl_screw_t* restrict so) {
+inline void ksl_add_ss(const ksl_screw_t* restrict s1i,
+                       const ksl_screw_t* restrict s2i,
+                       ksl_screw_t* restrict so) {
   for(int i = 0; i < 6; i++) {
     so->at[i] = s1i->at[i] + s2i->at[i];
   }
 }
 
-void ksl_add_ssf(const ksl_screwf_t* restrict s1i,
-                 const ksl_screwf_t* restrict s2i, ksl_screwf_t* restrict so) {
+inline void ksl_add_ssf(const ksl_screwf_t* restrict s1i,
+                        const ksl_screwf_t* restrict s2i,
+                        ksl_screwf_t* restrict so) {
   for(int i = 0; i < 6; i++) {
     so->at[i] = s1i->at[i] + s2i->at[i];
   }
 }
 
-void ksl_xpy_ss(const ksl_screw_t* restrict s1i, ksl_screw_t* restrict so) {
+inline void ksl_xpy_ss(const ksl_screw_t* restrict s1i,
+                       ksl_screw_t* restrict so) {
   for(int i = 0; i < 6; i++) {
     so->at[i] += s1i->at[i];
   }
 }
 
-void ksl_xpy_ssf(const ksl_screwf_t* restrict s1i, ksl_screwf_t* restrict so) {
+inline void ksl_xpy_ssf(const ksl_screwf_t* restrict s1i,
+                        ksl_screwf_t* restrict so) {
   for(int i = 0; i < 6; i++) {
     so->at[i] += s1i->at[i];
   }
 }
 
-void ksl_subtract_ss(const ksl_screw_t* restrict s1i,
-                     const ksl_screw_t* restrict s2i, ksl_screw_t* so) {
+inline void ksl_subtract_ss(const ksl_screw_t* restrict s1i,
+                            const ksl_screw_t* restrict s2i,
+                            ksl_screw_t* restrict so) {
   for(int i = 0; i < 6; i++) {
     so->at[i] = s1i->at[i] - s2i->at[i];
   }
 }
 
-void ksl_subtract_ssf(const ksl_screwf_t* restrict s1i,
-                      const ksl_screwf_t* restrict s2i,
-                      ksl_screwf_t* restrict so) {
+inline void ksl_subtract_ssf(const ksl_screwf_t* restrict s1i,
+                             const ksl_screwf_t* restrict s2i,
+                             ksl_screwf_t* restrict so) {
   for(int i = 0; i < 6; i++) {
     so->at[i] = s1i->at[i] - s2i->at[i];
   }
 }
 
-void ksl_nxpy_ss(const ksl_screw_t* restrict s1i, ksl_screw_t* restrict so) {
+inline void ksl_nxpy_ss(const ksl_screw_t* restrict s1i,
+                        ksl_screw_t* restrict so) {
   for(int i = 0; i < 6; i++) {
     so->at[i] -= s1i->at[i];
   }
 }
 
-void ksl_nxpy_ssf(const ksl_screwf_t* restrict s1i, ksl_screwf_t* restrict so) {
+inline void ksl_nxpy_ssf(const ksl_screwf_t* restrict s1i,
+                         ksl_screwf_t* restrict so) {
   for(int i = 0; i < 6; i++) {
     so->at[i] -= s1i->at[i];
   }
 }
 
-void ksl_add_sst(const ksl_screw_t* restrict si1,
-                 const ksl_screw_t* restrict si2, ksl_screw_t* restrict so) {
+inline void ksl_add_sst(const ksl_screw_t* restrict si1,
+                        const ksl_screw_t* restrict si2,
+                        ksl_screw_t* restrict so) {
   ksl_screw_copy(si1, so);
   so->at[0] += si2->at[0];
   so->at[1] += si2->at[1];
   so->at[2] += si2->at[2];
 }
 
-void ksl_add_sstf(const ksl_screwf_t* restrict si1,
-                  const ksl_screwf_t* restrict si2, ksl_screwf_t* restrict so) {
+inline void ksl_add_sstf(const ksl_screwf_t* restrict si1,
+                         const ksl_screwf_t* restrict si2,
+                         ksl_screwf_t* restrict so) {
   ksl_screwf_copy(si1, so);
   so->at[0] += si2->at[0];
   so->at[1] += si2->at[1];
