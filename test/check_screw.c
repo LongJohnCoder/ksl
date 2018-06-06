@@ -399,68 +399,431 @@ END_TEST
 
 START_TEST(test_htx) {
   ksl_SE3_t D;
-  D = ksl_SE3(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0);
-
-  fprintf(dbg, "D.R.at[0:2] = [%g, %g, %g]\n", D.R.at[0], D.R.at[1], D.R.at[2]);
-  fprintf(dbg, "D.R.at[3:5] = [%g, %g, %g]\n", D.R.at[3], D.R.at[4], D.R.at[5]);
-  fprintf(dbg, "D.R.at[6:8] = [%g, %g, %g]\n", D.R.at[6], D.R.at[7], D.R.at[8]);
-
-  fprintf(dbg, "D.R.as_array[0][0:2] = [%g, %g, %g]\n", D.R.as_array[0][0],
-          D.R.as_array[0][1], D.R.as_array[0][2]);
-  fprintf(dbg, "D.R.as_array[1][0:2] = [%g, %g, %g]\n", D.R.as_array[1][0],
-          D.R.as_array[1][1], D.R.as_array[1][2]);
-  fprintf(dbg, "D.R.as_array[2][0:2] = [%g, %g, %g]\n", D.R.as_array[2][0],
-          D.R.as_array[2][1], D.R.as_array[2][2]);
-
-  fprintf(dbg, "D.R.m00, m10, m20 = [%g, %g, %g]\n", D.R.m00, D.R.m10, D.R.m20);
-  fprintf(dbg, "D.R.m01, m11, m21 = [%g, %g, %g]\n", D.R.m01, D.R.m11, D.R.m21);
-  fprintf(dbg, "D.R.m02, m12, m21 = [%g, %g, %g]\n", D.R.m02, D.R.m12, D.R.m22);
-
-  fprintf(dbg, "D.R.v0 = [%g, %g, %g]\n", D.R.v0.x, D.R.v0.y, D.R.v0.z);
-  fprintf(dbg, "D.R.v1 = [%g, %g, %g]\n", D.R.v1.x, D.R.v1.y, D.R.v1.z);
-  fprintf(dbg, "D.R.v2 = [%g, %g, %g]\n", D.R.v2.x, D.R.v2.y, D.R.v2.z);
-
-  fprintf(dbg, "D.t.x,y,z = [%g, %g, %g]\n", D.t.x, D.t.y, D.t.z);
-
-  fprintf(dbg, "D.at[0:2] = [%g, %g, %g]\n", D.at[0], D.at[1], D.at[2]);
-  fprintf(dbg, "D.at[2:5] = [%g, %g, %g]\n", D.at[3], D.at[4], D.at[5]);
-  fprintf(dbg, "D.at[6:8] = [%g, %g, %g]\n", D.at[6], D.at[7], D.at[8]);
-  fprintf(dbg, "D.at[9:11] = [%g, %g, %g]\n", D.at[9], D.at[10], D.at[11]);
-
-  fprintf(dbg, "D.as_array[0][0:2] = [%g, %g, %g]\n", D.as_array[0][0],
-          D.as_array[0][1], D.as_array[0][2]);
-  fprintf(dbg, "D.as_array[1][0:2] = [%g, %g, %g]\n", D.as_array[1][0],
-          D.as_array[1][1], D.as_array[1][2]);
-  fprintf(dbg, "D.as_array[2][0:2] = [%g, %g, %g]\n", D.as_array[2][0],
-          D.as_array[2][1], D.as_array[2][2]);
-  fprintf(dbg, "D.as_array[3][0:2] = [%g, %g, %g]\n", D.as_array[3][0],
-          D.as_array[3][1], D.as_array[3][2]);
+  D =
+    ksl_SE3_cmo(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0);
 
   ksl_screw_t s = {{1.0, 2.0, 3.0, 4.0, 5.0, 6.0}};
   ksl_htx(&D, &s);
-  // ck_assert_double_eq_tol(s.m0, 1.0, 1.e-9);
-  // ck_assert_double_eq_tol(s.m1, 2.0, 1.e-9);
-  // ck_assert_double_eq_tol(s.m2, 3.0, 1.e-9);
-  // ck_assert_double_eq_tol(s.m3, 0.0, 1.e-9);
-  // ck_assert_double_eq_tol(s.m4, 0.0, 1.e-9);
-  // ck_assert_double_eq_tol(s.m5, 0.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m0, 1.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m1, 2.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m2, 3.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m3, 0.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m4, 0.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m5, 0.0, 1.e-9);
 }
 END_TEST
 
-// START_TEST(test_htx) {
-//   ksl_SE3_t Di;
-//
-//   ksl_screw_t s1 = {{1.0, 2.0, 3.0, 4.0, 5.0, 6.0}};
-//   ksl_screw_t s2 = {{10.0, 20.0, 30.0, 40.0, 50.0, 60.0}};
-//   ksl_nxpy_ss(&s1, &s2);
-//   ck_assert_double_eq_tol(s2.m0, 9.0, 1.e-9);
-//   ck_assert_double_eq_tol(s2.m1, 18.0, 1.e-9);
-//   ck_assert_double_eq_tol(s2.m2, 27.0, 1.e-9);
-//   ck_assert_double_eq_tol(s2.m3, 36.0, 1.e-9);
-//   ck_assert_double_eq_tol(s2.m4, 45.0, 1.e-9);
-//   ck_assert_double_eq_tol(s2.m5, 54.0, 1.e-9);
-// }
-// END_TEST
+START_TEST(test_htxf) {
+  ksl_SE3f_t D;
+  D =
+    ksl_SE3f_cmo(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0);
+
+  ksl_screwf_t s = {{1.0, 2.0, 3.0, 4.0, 5.0, 6.0}};
+  ksl_htxf(&D, &s);
+  ck_assert_float_eq_tol(s.m0, 1.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m1, 2.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m2, 3.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m3, 0.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m4, 0.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m5, 0.0, 1.e-6);
+}
+END_TEST
+
+START_TEST(test_hty) {
+  ksl_SE3_t D;
+  D =
+    ksl_SE3_cmo(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0);
+
+  ksl_screw_t s = {{1.0, 2.0, 3.0, 4.0, 5.0, 6.0}};
+  ksl_hty(&D, &s);
+  ck_assert_double_eq_tol(s.m0, 4.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m1, 5.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m2, 6.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m3, 0.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m4, 0.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m5, 0.0, 1.e-9);
+}
+END_TEST
+
+START_TEST(test_htyf) {
+  ksl_SE3f_t D;
+  D =
+    ksl_SE3f_cmo(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0);
+
+  ksl_screwf_t s = {{1.0, 2.0, 3.0, 4.0, 5.0, 6.0}};
+  ksl_htyf(&D, &s);
+  ck_assert_float_eq_tol(s.m0, 4.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m1, 5.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m2, 6.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m3, 0.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m4, 0.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m5, 0.0, 1.e-6);
+}
+END_TEST
+
+START_TEST(test_htz) {
+  ksl_SE3_t D;
+  D =
+    ksl_SE3_cmo(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0);
+
+  ksl_screw_t s = {{1.0, 2.0, 3.0, 4.0, 5.0, 6.0}};
+  ksl_htz(&D, &s);
+  ck_assert_double_eq_tol(s.m0, 7.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m1, 8.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m2, 9.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m3, 0.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m4, 0.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m5, 0.0, 1.e-9);
+}
+END_TEST
+
+START_TEST(test_htzf) {
+  ksl_SE3f_t D;
+  D =
+    ksl_SE3f_cmo(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0);
+
+  ksl_screwf_t s = {{1.0, 2.0, 3.0, 4.0, 5.0, 6.0}};
+  ksl_htzf(&D, &s);
+  ck_assert_float_eq_tol(s.m0, 7.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m1, 8.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m2, 9.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m3, 0.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m4, 0.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m5, 0.0, 1.e-6);
+}
+END_TEST
+
+START_TEST(test_hrx) {
+  ksl_SE3_t D;
+  D =
+    ksl_SE3_cmo(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0);
+
+  ksl_screw_t s = {{1.0, 2.0, 3.0, 4.0, 5.0, 6.0}};
+  ksl_hrx(&D, &s);
+  ck_assert_double_eq_tol(s.m0, 9.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m1, -18.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m2, 9.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m3, 1.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m4, 2.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m5, 3.0, 1.e-9);
+}
+END_TEST
+
+START_TEST(test_hrxf) {
+  ksl_SE3f_t D;
+  D =
+    ksl_SE3f_cmo(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0);
+
+  ksl_screwf_t s = {{1.0, 2.0, 3.0, 4.0, 5.0, 6.0}};
+  ksl_hrxf(&D, &s);
+  ck_assert_float_eq_tol(s.m0, 9.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m1, -18.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m2, 9.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m3, 1.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m4, 2.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m5, 3.0, 1.e-6);
+}
+END_TEST
+
+START_TEST(test_hry) {
+  ksl_SE3_t D;
+  D =
+    ksl_SE3_cmo(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0);
+
+  ksl_screw_t s = {{1.0, 2.0, 3.0, 4.0, 5.0, 6.0}};
+  ksl_hry(&D, &s);
+  ck_assert_double_eq_tol(s.m0, 6.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m1, -12.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m2, 6.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m3, 4.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m4, 5.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m5, 6.0, 1.e-9);
+}
+END_TEST
+
+START_TEST(test_hryf) {
+  ksl_SE3f_t D;
+  D =
+    ksl_SE3f_cmo(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0);
+
+  ksl_screwf_t s = {{1.0, 2.0, 3.0, 4.0, 5.0, 6.0}};
+  ksl_hryf(&D, &s);
+  ck_assert_float_eq_tol(s.m0, 6.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m1, -12.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m2, 6.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m3, 4.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m4, 5.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m5, 6.0, 1.e-6);
+}
+END_TEST
+
+START_TEST(test_hrz) {
+  ksl_SE3_t D;
+  D =
+    ksl_SE3_cmo(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0);
+
+  ksl_screw_t s = {{1.0, 2.0, 3.0, 4.0, 5.0, 6.0}};
+  ksl_hrz(&D, &s);
+  ck_assert_double_eq_tol(s.m0, 3.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m1, -6.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m2, 3.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m3, 7.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m4, 8.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m5, 9.0, 1.e-9);
+}
+END_TEST
+
+START_TEST(test_hrzf) {
+  ksl_SE3f_t D;
+  D =
+    ksl_SE3f_cmo(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0);
+
+  ksl_screwf_t s = {{1.0, 2.0, 3.0, 4.0, 5.0, 6.0}};
+  ksl_hrzf(&D, &s);
+  ck_assert_float_eq_tol(s.m0, 3.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m1, -6.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m2, 3.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m3, 7.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m4, 8.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m5, 9.0, 1.e-6);
+}
+END_TEST
+
+START_TEST(test_htxinv) {
+  ksl_SE3_t D;
+  D =
+    ksl_SE3_cmo(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0);
+
+  ksl_screw_t s = {{1.0, 2.0, 3.0, 4.0, 5.0, 6.0}};
+  ksl_htxinv(&D, &s);
+  ck_assert_double_eq_tol(s.m0, -1.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m1, -2.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m2, -3.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m3, 0.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m4, 0.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m5, 0.0, 1.e-9);
+}
+END_TEST
+
+START_TEST(test_htxinvf) {
+  ksl_SE3f_t D;
+  D =
+    ksl_SE3f_cmo(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0);
+
+  ksl_screwf_t s = {{1.0, 2.0, 3.0, 4.0, 5.0, 6.0}};
+  ksl_htxinvf(&D, &s);
+  ck_assert_float_eq_tol(s.m0, -1.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m1, -2.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m2, -3.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m3, 0.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m4, 0.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m5, 0.0, 1.e-6);
+}
+END_TEST
+
+START_TEST(test_htyinv) {
+  ksl_SE3_t D;
+  D =
+    ksl_SE3_cmo(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0);
+
+  ksl_screw_t s = {{1.0, 2.0, 3.0, 4.0, 5.0, 6.0}};
+  ksl_htyinv(&D, &s);
+  ck_assert_double_eq_tol(s.m0, -4.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m1, -5.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m2, -6.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m3, 0.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m4, 0.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m5, 0.0, 1.e-9);
+}
+END_TEST
+
+START_TEST(test_htyinvf) {
+  ksl_SE3f_t D;
+  D =
+    ksl_SE3f_cmo(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0);
+
+  ksl_screwf_t s = {{1.0, 2.0, 3.0, 4.0, 5.0, 6.0}};
+  ksl_htyinvf(&D, &s);
+  ck_assert_float_eq_tol(s.m0, -4.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m1, -5.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m2, -6.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m3, 0.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m4, 0.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m5, 0.0, 1.e-6);
+}
+END_TEST
+
+START_TEST(test_htzinv) {
+  ksl_SE3_t D;
+  D =
+    ksl_SE3_cmo(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0);
+
+  ksl_screw_t s = {{1.0, 2.0, 3.0, 4.0, 5.0, 6.0}};
+  ksl_htzinv(&D, &s);
+  ck_assert_double_eq_tol(s.m0, -7.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m1, -8.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m2, -9.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m3, 0.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m4, 0.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m5, 0.0, 1.e-9);
+}
+END_TEST
+
+START_TEST(test_htzinvf) {
+  ksl_SE3f_t D;
+  D =
+    ksl_SE3f_cmo(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0);
+
+  ksl_screwf_t s = {{1.0, 2.0, 3.0, 4.0, 5.0, 6.0}};
+  ksl_htzinvf(&D, &s);
+  ck_assert_float_eq_tol(s.m0, -7.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m1, -8.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m2, -9.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m3, 0.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m4, 0.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m5, 0.0, 1.e-6);
+}
+END_TEST
+
+START_TEST(test_hrxinv) {
+  ksl_SE3_t D;
+  D =
+    ksl_SE3_cmo(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0);
+
+  ksl_screw_t s = {{1.0, 2.0, 3.0, 4.0, 5.0, 6.0}};
+  ksl_hrxinv(&D, &s);
+  ck_assert_double_eq_tol(s.m0, -9.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m1, 18.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m2, -9.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m3, -1.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m4, -2.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m5, -3.0, 1.e-9);
+}
+END_TEST
+
+START_TEST(test_hrxinvf) {
+  ksl_SE3f_t D;
+  D =
+    ksl_SE3f_cmo(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0);
+
+  ksl_screwf_t s = {{1.0, 2.0, 3.0, 4.0, 5.0, 6.0}};
+  ksl_hrxinvf(&D, &s);
+  ck_assert_float_eq_tol(s.m0, -9.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m1, 18.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m2, -9.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m3, -1.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m4, -2.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m5, -3.0, 1.e-6);
+}
+END_TEST
+
+START_TEST(test_hryinv) {
+  ksl_SE3_t D;
+  D =
+    ksl_SE3_cmo(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0);
+
+  ksl_screw_t s = {{1.0, 2.0, 3.0, 4.0, 5.0, 6.0}};
+  ksl_hryinv(&D, &s);
+  ck_assert_double_eq_tol(s.m0, -6.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m1, 12.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m2, -6.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m3, -4.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m4, -5.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m5, -6.0, 1.e-9);
+}
+END_TEST
+
+START_TEST(test_hryinvf) {
+  ksl_SE3f_t D;
+  D =
+    ksl_SE3f_cmo(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0);
+
+  ksl_screwf_t s = {{1.0, 2.0, 3.0, 4.0, 5.0, 6.0}};
+  ksl_hryinvf(&D, &s);
+  ck_assert_float_eq_tol(s.m0, -6.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m1, 12.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m2, -6.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m3, -4.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m4, -5.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m5, -6.0, 1.e-6);
+}
+END_TEST
+
+START_TEST(test_hrzinv) {
+  ksl_SE3_t D;
+  D =
+    ksl_SE3_cmo(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0);
+
+  ksl_screw_t s = {{1.0, 2.0, 3.0, 4.0, 5.0, 6.0}};
+  ksl_hrzinv(&D, &s);
+  ck_assert_double_eq_tol(s.m0, -3.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m1, 6.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m2, -3.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m3, -7.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m4, -8.0, 1.e-9);
+  ck_assert_double_eq_tol(s.m5, -9.0, 1.e-9);
+}
+END_TEST
+
+START_TEST(test_hrzinvf) {
+  ksl_SE3f_t D;
+  D =
+    ksl_SE3f_cmo(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0);
+
+  ksl_screwf_t s = {{1.0, 2.0, 3.0, 4.0, 5.0, 6.0}};
+  ksl_hrzinvf(&D, &s);
+  ck_assert_float_eq_tol(s.m0, -3.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m1, 6.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m2, -3.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m3, -7.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m4, -8.0, 1.e-6);
+  ck_assert_float_eq_tol(s.m5, -9.0, 1.e-6);
+}
+END_TEST
+
+START_TEST(test_cross_ss) {
+  ksl_screw_t s1 = {{4.0, 5.0, 6.0, 1.0, 2.0, 3.0}};
+  ksl_screw_t s2 = {{6.0, 5.0, 4.0, 3.0, 2.0, 1.0}};
+  fprintf(dbg, "\nIn cross_ss\n");
+  fprintf(dbg, "s1: [%g, %g, %g, %g, %g, %g]\n", s1.m0, s1.m1, s1.m2, s1.m3,
+          s1.m4, s1.m5);
+  fprintf(dbg, "s2: [%g, %g, %g, %g, %g, %g]\n", s2.m0, s2.m1, s2.m2, s2.m3,
+          s2.m4, s2.m5);
+  ksl_cross_ss(&s1, &s2, &s2);
+  fprintf(dbg, "s1: [%g, %g, %g, %g, %g, %g]\n", s1.m0, s1.m1, s1.m2, s1.m3,
+          s1.m4, s1.m5);
+  fprintf(dbg, "s2: [%g, %g, %g, %g, %g, %g]\n", s2.m0, s2.m1, s2.m2, s2.m3,
+          s2.m4, s2.m5);
+  ck_assert_double_eq_tol(s2.m0, -14.0, 1.e-9);
+  ck_assert_double_eq_tol(s2.m1, 28.0, 1.e-9);
+  ck_assert_double_eq_tol(s2.m2, -14.0, 1.e-9);
+  ck_assert_double_eq_tol(s2.m3, -4.0, 1.e-9);
+  ck_assert_double_eq_tol(s2.m4, 8.0, 1.e-9);
+  ck_assert_double_eq_tol(s2.m5, -4.0, 1.e-9);
+}
+END_TEST
+
+START_TEST(test_cross_ssf) {
+  ksl_screwf_t s1 = {{4.0, 5.0, 6.0, 1.0, 2.0, 3.0}};
+  ksl_screwf_t s2 = {{6.0, 5.0, 4.0, 3.0, 2.0, 1.0}};
+  fprintf(dbg, "\nIn cross_ssf\n");
+  fprintf(dbg, "s1: [%g, %g, %g, %g, %g, %g]\n", s1.m0, s1.m1, s1.m2, s1.m3,
+          s1.m4, s1.m5);
+  fprintf(dbg, "s2: [%g, %g, %g, %g, %g, %g]\n", s2.m0, s2.m1, s2.m2, s2.m3,
+          s2.m4, s2.m5);
+  ksl_cross_ssf(&s1, &s2, &s2);
+  fprintf(dbg, "s1: [%g, %g, %g, %g, %g, %g]\n", s1.m0, s1.m1, s1.m2, s1.m3,
+          s1.m4, s1.m5);
+  fprintf(dbg, "s2: [%g, %g, %g, %g, %g, %g]\n", s2.m0, s2.m1, s2.m2, s2.m3,
+          s2.m4, s2.m5);
+  // ck_assert_float_eq_tol(s2.m0, -14.0, 1.e-6);
+  // ck_assert_float_eq_tol(s2.m1, 28.0, 1.e-6);
+  // ck_assert_float_eq_tol(s2.m2, -14.0, 1.e-6);
+  // ck_assert_float_eq_tol(s2.m3, -4.0, 1.e-6);
+  // ck_assert_float_eq_tol(s2.m4, 8.0, 1.e-6);
+  // ck_assert_float_eq_tol(s2.m5, -4.0, 1.e-6);
+}
+END_TEST
 
 Suite* screw_suite(void) {
   Suite* s = suite_create("screw");
@@ -496,6 +859,31 @@ Suite* screw_suite(void) {
   tcase_add_test(tc_core, test_add_sst);
   tcase_add_test(tc_core, test_add_sstf);
   tcase_add_test(tc_core, test_htx);
+  tcase_add_test(tc_core, test_htxf);
+  tcase_add_test(tc_core, test_hty);
+  tcase_add_test(tc_core, test_htyf);
+  tcase_add_test(tc_core, test_htz);
+  tcase_add_test(tc_core, test_htzf);
+  tcase_add_test(tc_core, test_hrx);
+  tcase_add_test(tc_core, test_hrxf);
+  tcase_add_test(tc_core, test_hry);
+  tcase_add_test(tc_core, test_hryf);
+  tcase_add_test(tc_core, test_hrz);
+  tcase_add_test(tc_core, test_hrzf);
+  tcase_add_test(tc_core, test_htxinv);
+  tcase_add_test(tc_core, test_htxinvf);
+  tcase_add_test(tc_core, test_htyinv);
+  tcase_add_test(tc_core, test_htyinvf);
+  tcase_add_test(tc_core, test_htzinv);
+  tcase_add_test(tc_core, test_htzinvf);
+  tcase_add_test(tc_core, test_hrxinv);
+  tcase_add_test(tc_core, test_hrxinvf);
+  tcase_add_test(tc_core, test_hryinv);
+  tcase_add_test(tc_core, test_hryinvf);
+  tcase_add_test(tc_core, test_hrzinv);
+  tcase_add_test(tc_core, test_hrzinvf);
+  tcase_add_test(tc_core, test_cross_ss);
+  tcase_add_test(tc_core, test_cross_ssf);
 
   suite_add_tcase(s, tc_core);
   return s;

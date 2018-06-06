@@ -40,7 +40,7 @@ typedef union ksl_screw_t {
                              angular acceleration (\omega, or \dot{\omega}) */
   };
   struct {
-    double m0, m1, m2, m3, m4, m5, m6;
+    double m0, m1, m2, m3, m4, m5;
   };
 } ksl_screw_t;
 
@@ -57,7 +57,7 @@ typedef union ksl_screwf_t {
                              angular acceleration (\omega, or \dot{\omega}) */
   };
   struct {
-    float m0, m1, m2, m3, m4, m5, m6;
+    float m0, m1, m2, m3, m4, m5;
   };
 } ksl_screwf_t;
 
@@ -152,6 +152,8 @@ void ksl_hrx(const ksl_SE3_t* Di, ksl_screw_t* ho);
 void ksl_hrxf(const ksl_SE3f_t* Di, ksl_screwf_t* ho);
 
 void ksl_hry(const ksl_SE3_t* Di, ksl_screw_t* ho);
+
+void ksl_hryf(const ksl_SE3f_t* Di, ksl_screwf_t* ho);
 
 void ksl_hrz(const ksl_SE3_t* Di, ksl_screw_t* ho);
 

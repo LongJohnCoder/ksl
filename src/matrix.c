@@ -6,9 +6,11 @@
 #include "util.h"
 
 /*
-|r_00, r_01, r_02 : t_0|
-|r_10, r_11, r_12 : t_1|
-|r_20, r_21, r_22 : t_2|
+|r_00, r_01, r_02 : t_x|
+|r_10, r_11, r_12 : t_y|
+|r_20, r_21, r_22 : t_z|
+Entering column-major data in row-major order. The assignment statements
+indicate the order data is stored in memory.
 */
 
 inline ksl_SE3_t ksl_SE3(const double m00, const double m01, const double m02,
@@ -31,6 +33,14 @@ inline ksl_SE3_t ksl_SE3(const double m00, const double m01, const double m02,
   return d;
 }
 
+/*
+|r_00, r_01, r_02 : t_x|
+|r_10, r_11, r_12 : t_y|
+|r_20, r_21, r_22 : t_z|
+Entering column-major data in column-major order. The assignment statements
+indicate the order data is stored in memory.
+*/
+
 inline ksl_SE3_t ksl_SE3_cmo(const double m00, const double m10,
                              const double m20, const double m01,
                              const double m11, const double m21,
@@ -39,13 +49,13 @@ inline ksl_SE3_t ksl_SE3_cmo(const double m00, const double m10,
                              const double m13, const double m23) {
   ksl_SE3_t d;
   d.R.m00 = m00;
-  d.R.m01 = m01;
-  d.R.m02 = m02;
   d.R.m10 = m10;
-  d.R.m11 = m11;
-  d.R.m12 = m12;
   d.R.m20 = m20;
+  d.R.m01 = m01;
+  d.R.m11 = m11;
   d.R.m21 = m21;
+  d.R.m02 = m02;
+  d.R.m12 = m12;
   d.R.m22 = m22;
   d.t.x = m03;
   d.t.y = m13;
@@ -59,6 +69,14 @@ inline ksl_SE3_t ksl_SE3_fromRt(const ksl_mat3x3_t R, const ksl_vec3_t t) {
   d.t = t;
   return d;
 }
+
+/*
+|r_00, r_01, r_02 : t_x|
+|r_10, r_11, r_12 : t_y|
+|r_20, r_21, r_22 : t_z|
+Entering column-major data in row-major order. The assignment statements
+indicate the order data is stored in memory.
+*/
 
 inline ksl_SE3f_t ksl_SE3f(const float m00, const float m01, const float m02,
                            const float m03, const float m10, const float m11,
@@ -80,6 +98,14 @@ inline ksl_SE3f_t ksl_SE3f(const float m00, const float m01, const float m02,
   return d;
 }
 
+/*
+|r_00, r_01, r_02 : t_x|
+|r_10, r_11, r_12 : t_y|
+|r_20, r_21, r_22 : t_z|
+Entering column-major data in column-major order. The assignment statements
+indicate the order data is stored in memory.
+*/
+
 inline ksl_SE3f_t ksl_SE3f_cmo(const float m00, const float m10,
                                const float m20, const float m01,
                                const float m11, const float m21,
@@ -88,13 +114,13 @@ inline ksl_SE3f_t ksl_SE3f_cmo(const float m00, const float m10,
                                const float m13, const float m23) {
   ksl_SE3f_t d;
   d.R.m00 = m00;
-  d.R.m01 = m01;
-  d.R.m02 = m02;
   d.R.m10 = m10;
-  d.R.m11 = m11;
-  d.R.m12 = m12;
   d.R.m20 = m20;
+  d.R.m01 = m01;
+  d.R.m11 = m11;
   d.R.m21 = m21;
+  d.R.m02 = m02;
+  d.R.m12 = m12;
   d.R.m22 = m22;
   d.t.x = m03;
   d.t.y = m13;
@@ -108,6 +134,14 @@ inline ksl_SE3f_t ksl_SE3f_fromRt(const ksl_mat3x3f_t R, const ksl_vec3f_t t) {
   d.t = t;
   return d;
 }
+
+/*
+|r_00, r_01, r_02|
+|r_10, r_11, r_12|
+|r_20, r_21, r_22|
+Entering column-major data in row-major order. The assignment statements
+indicate the order data is stored in memory.
+*/
 
 inline ksl_mat3x3_t ksl_mat3x3(const double m00, const double m01,
                                const double m02, const double m10,
@@ -127,6 +161,14 @@ inline ksl_mat3x3_t ksl_mat3x3(const double m00, const double m01,
   return r;
 }
 
+/*
+|r_00, r_01, r_02|
+|r_10, r_11, r_12|
+|r_20, r_21, r_22|
+Entering column-major data in column-major order. The assignment statements
+indicate the order data is stored in memory.
+*/
+
 inline ksl_mat3x3_t ksl_mat3x3_cmo(const double m00, const double m10,
                                    const double m20, const double m01,
                                    const double m11, const double m21,
@@ -144,6 +186,14 @@ inline ksl_mat3x3_t ksl_mat3x3_cmo(const double m00, const double m10,
   r.m22 = m22;
   return r;
 }
+
+/*
+|r_00, r_01, r_02|
+|r_10, r_11, r_12|
+|r_20, r_21, r_22|
+Entering column-major data in row-major order. The assignment statements
+indicate the order data is stored in memory.
+*/
 
 inline ksl_mat3x3f_t ksl_mat3x3f(const float m00, const float m01,
                                  const float m02, const float m10,
@@ -163,6 +213,14 @@ inline ksl_mat3x3f_t ksl_mat3x3f(const float m00, const float m01,
   return r;
 }
 
+/*
+|r_00, r_01, r_02|
+|r_10, r_11, r_12|
+|r_20, r_21, r_22|
+Entering column-major data in column-major order. The assignment statements
+indicate the order data is stored in memory.
+*/
+
 inline ksl_mat3x3f_t ksl_mat3x3f_cmo(const float m00, const float m10,
                                      const float m20, const float m01,
                                      const float m11, const float m21,
@@ -181,6 +239,14 @@ inline ksl_mat3x3f_t ksl_mat3x3f_cmo(const float m00, const float m10,
   return r;
 }
 
+/*
+|m_00, m_01, m_02, m_03|
+|m_10, m_11, m_12, m_13|
+|m_20, m_21, m_22, m_23|
+|m_30, m_31, m_32, m_33|
+Entering column-major data in row-major order. The assignment statements
+indicate the order data is stored in memory.
+*/
 inline ksl_mat4x4_t ksl_mat4x4(
   const double m00, const double m01, const double m02, const double m03,
   const double m10, const double m11, const double m12, const double m13,
@@ -206,6 +272,14 @@ inline ksl_mat4x4_t ksl_mat4x4(
   return m;
 }
 
+/*
+|m_00, m_01, m_02, m_03|
+|m_10, m_11, m_12, m_13|
+|m_20, m_21, m_22, m_23|
+|m_30, m_31, m_32, m_33|
+Entering column-major data in column-major order. The assignment statements
+indicate the order data is stored in memory.
+*/
 inline ksl_mat4x4_t ksl_mat4x4_cmo(
   const double m00, const double m10, const double m20, const double m30,
   const double m01, const double m11, const double m21, const double m31,
@@ -231,49 +305,73 @@ inline ksl_mat4x4_t ksl_mat4x4_cmo(
   return m;
 }
 
+/*
+|m_00, m_01, m_02, m_03|     |r_00, r_01, r_02, t_x|
+|m_10, m_11, m_12, m_13|     |r_10, r_11, r_12, t_y|
+|m_20, m_21, m_22, m_23| <---|r_20, r_21, r_22, t_z|
+|m_30, m_31, m_32, m_33|     | 0.0,  0.0,  0.0, 1.0|
+Entering column-major data in column-major order. The assignment statements
+indicate the order data is stored in memory.
+*/
 inline ksl_mat4x4_t ksl_mat4x4_fromSE3(const ksl_SE3_t D) {
   ksl_mat4x4_t m;
   m.m00 = D.m00;
-  m.m01 = D.m01;
-  m.m02 = D.m02;
-  m.m03 = D.m03;
   m.m10 = D.m10;
-  m.m11 = D.m11;
-  m.m12 = D.m12;
-  m.m13 = D.m13;
   m.m20 = D.m20;
-  m.m21 = D.m21;
-  m.m22 = D.m22;
-  m.m23 = D.m23;
   m.m30 = 0.0;
+  m.m01 = D.m01;
+  m.m11 = D.m11;
+  m.m21 = D.m21;
   m.m31 = 0.0;
+  m.m02 = D.m02;
+  m.m12 = D.m12;
+  m.m22 = D.m22;
   m.m32 = 0.0;
+  m.m03 = D.m03;
+  m.m13 = D.m13;
+  m.m23 = D.m23;
   m.m33 = 1.0;
   return m;
 }
 
+/*
+|m_00, m_01, m_02, m_03|     |r_00, r_01, r_02, t_x|
+|m_10, m_11, m_12, m_13|     |r_10, r_11, r_12, t_y|
+|m_20, m_21, m_22, m_23| <---|r_20, r_21, r_22, t_z|
+|m_30, m_31, m_32, m_33|     | 0.0,  0.0,  0.0, 1.0|
+Entering column-major data in column-major order. The assignment statements
+indicate the order data is stored in memory.
+*/
 inline ksl_mat4x4_t ksl_mat4x4_fromRt(const ksl_mat3x3_t R,
                                       const ksl_vec3_t t) {
   ksl_mat4x4_t m;
   m.m00 = R.m00;
-  m.m01 = R.m01;
-  m.m02 = R.m02;
-  m.m03 = t.x;
   m.m10 = R.m10;
-  m.m11 = R.m11;
-  m.m12 = R.m12;
-  m.m13 = t.y;
   m.m20 = R.m20;
-  m.m21 = R.m21;
-  m.m22 = R.m22;
-  m.m23 = t.z;
   m.m30 = 0.0;
+  m.m01 = R.m01;
+  m.m11 = R.m11;
+  m.m21 = R.m21;
   m.m31 = 0.0;
+  m.m02 = R.m02;
+  m.m12 = R.m12;
+  m.m22 = R.m22;
   m.m32 = 0.0;
+  m.m03 = t.x;
+  m.m13 = t.y;
+  m.m23 = t.z;
   m.m33 = 1.0;
   return m;
 }
 
+/*
+|m_00, m_01, m_02, m_03|
+|m_10, m_11, m_12, m_13|
+|m_20, m_21, m_22, m_23|
+|m_30, m_31, m_32, m_33|
+Entering column-major data in row-major order. The assignment statements
+indicate the order data is stored in memory.
+*/
 inline ksl_mat4x4f_t
 ksl_mat4x4f(const float m00, const float m01, const float m02, const float m03,
             const float m10, const float m11, const float m12, const float m13,
@@ -300,6 +398,14 @@ ksl_mat4x4f(const float m00, const float m01, const float m02, const float m03,
   return m;
 }
 
+/*
+|m_00, m_01, m_02, m_03|
+|m_10, m_11, m_12, m_13|
+|m_20, m_21, m_22, m_23|
+|m_30, m_31, m_32, m_33|
+Entering column-major data in column-major order. The assignment statements
+indicate the order data is stored in memory.
+*/
 inline ksl_mat4x4f_t ksl_mat4x4f_cmo(
   const float m00, const float m10, const float m20, const float m30,
   const float m01, const float m11, const float m21, const float m31,
@@ -325,45 +431,61 @@ inline ksl_mat4x4f_t ksl_mat4x4f_cmo(
   return m;
 }
 
+/*
+|m_00, m_01, m_02, m_03|     |r_00, r_01, r_02, t_x|
+|m_10, m_11, m_12, m_13|     |r_10, r_11, r_12, t_y|
+|m_20, m_21, m_22, m_23| <---|r_20, r_21, r_22, t_z|
+|m_30, m_31, m_32, m_33|     | 0.0,  0.0,  0.0, 1.0|
+Entering column-major data in column-major order. The assignment statements
+indicate the order data is stored in memory.
+*/
 inline ksl_mat4x4f_t ksl_mat4x4f_fromSE3f(const ksl_SE3f_t D) {
   ksl_mat4x4f_t m;
   m.m00 = D.m00;
-  m.m01 = D.m01;
-  m.m02 = D.m02;
-  m.m03 = D.m03;
   m.m10 = D.m10;
-  m.m11 = D.m11;
-  m.m12 = D.m12;
-  m.m13 = D.m13;
   m.m20 = D.m20;
-  m.m21 = D.m21;
-  m.m22 = D.m22;
-  m.m23 = D.m23;
   m.m30 = 0.0;
+  m.m01 = D.m01;
+  m.m11 = D.m11;
+  m.m21 = D.m21;
   m.m31 = 0.0;
+  m.m02 = D.m02;
+  m.m12 = D.m12;
+  m.m22 = D.m22;
   m.m32 = 0.0;
+  m.m03 = D.m03;
+  m.m13 = D.m13;
+  m.m23 = D.m23;
   m.m33 = 1.0;
   return m;
 }
 
+/*
+|m_00, m_01, m_02, m_03|     |r_00, r_01, r_02, t_x|
+|m_10, m_11, m_12, m_13|     |r_10, r_11, r_12, t_y|
+|m_20, m_21, m_22, m_23| <---|r_20, r_21, r_22, t_z|
+|m_30, m_31, m_32, m_33|     | 0.0,  0.0,  0.0, 1.0|
+Entering column-major data in column-major order. The assignment statements
+indicate the order data is stored in memory.
+*/
 inline ksl_mat4x4f_t ksl_mat4x4f_fromRt(const ksl_mat3x3f_t R,
                                         const ksl_vec3f_t t) {
   ksl_mat4x4f_t m;
   m.m00 = R.m00;
-  m.m01 = R.m01;
-  m.m02 = R.m02;
-  m.m03 = t.x;
   m.m10 = R.m10;
-  m.m11 = R.m11;
-  m.m12 = R.m12;
-  m.m13 = t.y;
   m.m20 = R.m20;
-  m.m21 = R.m21;
-  m.m22 = R.m22;
-  m.m23 = t.z;
   m.m30 = 0.0;
+  m.m01 = R.m01;
+  m.m11 = R.m11;
+  m.m21 = R.m21;
   m.m31 = 0.0;
+  m.m02 = R.m02;
+  m.m12 = R.m12;
+  m.m22 = R.m22;
   m.m32 = 0.0;
+  m.m03 = t.x;
+  m.m13 = t.y;
+  m.m23 = t.z;
   m.m33 = 1.0;
   return m;
 }
