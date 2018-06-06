@@ -5,19 +5,25 @@
 #include "matrix.h"
 #include "util.h"
 
+/*
+|r_00, r_01, r_02 : t_0|
+|r_10, r_11, r_12 : t_1|
+|r_20, r_21, r_22 : t_2|
+*/
+
 inline ksl_SE3_t ksl_SE3(const double m00, const double m01, const double m02,
                          const double m03, const double m10, const double m11,
                          const double m12, const double m13, const double m20,
                          const double m21, const double m22, const double m23) {
   ksl_SE3_t d;
   d.R.m00 = m00;
-  d.R.m01 = m01;
-  d.R.m02 = m02;
   d.R.m10 = m10;
-  d.R.m11 = m11;
-  d.R.m12 = m12;
   d.R.m20 = m20;
+  d.R.m01 = m01;
+  d.R.m11 = m11;
   d.R.m21 = m21;
+  d.R.m02 = m02;
+  d.R.m12 = m12;
   d.R.m22 = m22;
   d.t.x = m03;
   d.t.y = m13;
@@ -60,13 +66,13 @@ inline ksl_SE3f_t ksl_SE3f(const float m00, const float m01, const float m02,
                            const float m21, const float m22, const float m23) {
   ksl_SE3f_t d;
   d.R.m00 = m00;
-  d.R.m01 = m01;
-  d.R.m02 = m02;
   d.R.m10 = m10;
-  d.R.m11 = m11;
-  d.R.m12 = m12;
   d.R.m20 = m20;
+  d.R.m01 = m01;
+  d.R.m11 = m11;
   d.R.m21 = m21;
+  d.R.m02 = m02;
+  d.R.m12 = m12;
   d.R.m22 = m22;
   d.t.x = m03;
   d.t.y = m13;
@@ -110,13 +116,13 @@ inline ksl_mat3x3_t ksl_mat3x3(const double m00, const double m01,
                                const double m22) {
   ksl_mat3x3_t r;
   r.m00 = m00;
-  r.m01 = m01;
-  r.m02 = m02;
   r.m10 = m10;
-  r.m11 = m11;
-  r.m12 = m12;
   r.m20 = m20;
+  r.m01 = m01;
+  r.m11 = m11;
   r.m21 = m21;
+  r.m02 = m02;
+  r.m12 = m12;
   r.m22 = m22;
   return r;
 }
@@ -128,13 +134,13 @@ inline ksl_mat3x3_t ksl_mat3x3_cmo(const double m00, const double m10,
                                    const double m22) {
   ksl_mat3x3_t r;
   r.m00 = m00;
-  r.m01 = m01;
-  r.m02 = m02;
   r.m10 = m10;
-  r.m11 = m11;
-  r.m12 = m12;
   r.m20 = m20;
+  r.m01 = m01;
+  r.m11 = m11;
   r.m21 = m21;
+  r.m02 = m02;
+  r.m12 = m12;
   r.m22 = m22;
   return r;
 }
@@ -146,13 +152,13 @@ inline ksl_mat3x3f_t ksl_mat3x3f(const float m00, const float m01,
                                  const float m22) {
   ksl_mat3x3f_t r;
   r.m00 = m00;
-  r.m01 = m01;
-  r.m02 = m02;
   r.m10 = m10;
-  r.m11 = m11;
-  r.m12 = m12;
   r.m20 = m20;
+  r.m01 = m01;
+  r.m11 = m11;
   r.m21 = m21;
+  r.m02 = m02;
+  r.m12 = m12;
   r.m22 = m22;
   return r;
 }
@@ -164,13 +170,13 @@ inline ksl_mat3x3f_t ksl_mat3x3f_cmo(const float m00, const float m10,
                                      const float m22) {
   ksl_mat3x3f_t r;
   r.m00 = m00;
-  r.m01 = m01;
-  r.m02 = m02;
   r.m10 = m10;
-  r.m11 = m11;
-  r.m12 = m12;
   r.m20 = m20;
+  r.m01 = m01;
+  r.m11 = m11;
   r.m21 = m21;
+  r.m02 = m02;
+  r.m12 = m12;
   r.m22 = m22;
   return r;
 }
@@ -182,20 +188,20 @@ inline ksl_mat4x4_t ksl_mat4x4(
   const double m30, const double m31, const double m32, const double m33) {
   ksl_mat4x4_t m;
   m.m00 = m00;
-  m.m01 = m01;
-  m.m02 = m02;
-  m.m03 = m03;
   m.m10 = m10;
-  m.m11 = m11;
-  m.m12 = m12;
-  m.m13 = m13;
   m.m20 = m20;
-  m.m21 = m21;
-  m.m22 = m22;
-  m.m23 = m23;
   m.m30 = m30;
+  m.m01 = m01;
+  m.m11 = m11;
+  m.m21 = m21;
   m.m31 = m31;
+  m.m02 = m02;
+  m.m12 = m12;
+  m.m22 = m22;
   m.m32 = m32;
+  m.m03 = m03;
+  m.m13 = m13;
+  m.m23 = m23;
   m.m33 = m33;
   return m;
 }
@@ -207,20 +213,20 @@ inline ksl_mat4x4_t ksl_mat4x4_cmo(
   const double m03, const double m13, const double m23, const double m33) {
   ksl_mat4x4_t m;
   m.m00 = m00;
-  m.m01 = m01;
-  m.m02 = m02;
-  m.m03 = m03;
   m.m10 = m10;
-  m.m11 = m11;
-  m.m12 = m12;
-  m.m13 = m13;
   m.m20 = m20;
-  m.m21 = m21;
-  m.m22 = m22;
-  m.m23 = m23;
   m.m30 = m30;
+  m.m01 = m01;
+  m.m11 = m11;
+  m.m21 = m21;
   m.m31 = m31;
+  m.m02 = m02;
+  m.m12 = m12;
+  m.m22 = m22;
   m.m32 = m32;
+  m.m03 = m03;
+  m.m13 = m13;
+  m.m23 = m23;
   m.m33 = m33;
   return m;
 }
@@ -276,20 +282,20 @@ ksl_mat4x4f(const float m00, const float m01, const float m02, const float m03,
             const float m33) {
   ksl_mat4x4f_t m;
   m.m00 = m00;
-  m.m01 = m01;
-  m.m02 = m02;
-  m.m03 = m03;
   m.m10 = m10;
-  m.m11 = m11;
-  m.m12 = m12;
-  m.m13 = m13;
   m.m20 = m20;
-  m.m21 = m21;
-  m.m22 = m22;
-  m.m23 = m23;
   m.m30 = m30;
+  m.m01 = m01;
+  m.m11 = m11;
+  m.m21 = m21;
   m.m31 = m31;
+  m.m02 = m02;
+  m.m12 = m12;
+  m.m22 = m22;
   m.m32 = m32;
+  m.m03 = m03;
+  m.m13 = m13;
+  m.m23 = m23;
   m.m33 = m33;
   return m;
 }
@@ -301,20 +307,20 @@ inline ksl_mat4x4f_t ksl_mat4x4f_cmo(
   const float m03, const float m13, const float m23, const float m33) {
   ksl_mat4x4f_t m;
   m.m00 = m00;
-  m.m01 = m01;
-  m.m02 = m02;
-  m.m03 = m03;
   m.m10 = m10;
-  m.m11 = m11;
-  m.m12 = m12;
-  m.m13 = m13;
   m.m20 = m20;
-  m.m21 = m21;
-  m.m22 = m22;
-  m.m23 = m23;
   m.m30 = m30;
+  m.m01 = m01;
+  m.m11 = m11;
+  m.m21 = m21;
   m.m31 = m31;
+  m.m02 = m02;
+  m.m12 = m12;
+  m.m22 = m22;
   m.m32 = m32;
+  m.m03 = m03;
+  m.m13 = m13;
+  m.m23 = m23;
   m.m33 = m33;
   return m;
 }
@@ -596,10 +602,10 @@ inline void ksl_mat3x3f_copy(const ksl_mat3x3f_t* restrict ri,
   memcpy(ro, ri, sizeof(ksl_mat3x3f_t));
 }
 
-/*!@brief Performs the general matrix inverse for a ksl_mat3x3_t matrix in-place
-with no pivoting. If the matrix is an orthonormal rotation matrix with a
-determinant of one, (i.e. it is \in SO3), then the less expensive matrix
-transpose function can be used for performing the inverse */
+/*!@brief Performs the general matrix inverse for a ksl_mat3x3_t matrix
+in-place with no pivoting. If the matrix is an orthonormal rotation matrix
+with a determinant of one, (i.e. it is \in SO3), then the less expensive
+matrix transpose function can be used for performing the inverse */
 inline int ksl_mat3x3_invert(ksl_mat3x3_t* restrict R) {
   ksl_mat3x3_t a;
   ksl_mat3x3_copy(R, &a);
@@ -656,9 +662,9 @@ inline int ksl_mat3x3_invert(ksl_mat3x3_t* restrict R) {
 }
 
 /*!@brief Performs the general matrix inverse for a ksl_mat3x3f_t matrix
-in-place with no pivoting. If the matrix is an orthonormal rotation matrix with
-a determinant of one, (i.e. it is \in SO3), then the less expensive matrix
-transpose function can be used for performing the inverse */
+in-place with no pivoting. If the matrix is an orthonormal rotation matrix
+with a determinant of one, (i.e. it is \in SO3), then the less expensive
+matrix transpose function can be used for performing the inverse */
 inline int ksl_mat3x3f_invert(ksl_mat3x3f_t* restrict R) {
   ksl_mat3x3f_t a;
   ksl_mat3x3f_copy(R, &a);
@@ -894,7 +900,8 @@ inline void ksl_SE3f_invert(ksl_SE3f_t* D) {
 }
 
 /*!
-@brief obtain sequence of Euler angles using specified axis sequence convention
+@brief obtain sequence of Euler angles using specified axis sequence
+convention
 */
 inline void ksl_mat3x3_getEulerAngles(const ksl_mat3x3_t* r, ksl_vec3_t* angles,
                                       const ksl_axis_enum_t axisType) {
