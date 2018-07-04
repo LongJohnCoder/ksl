@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/roger/Projects/ksl/test/check_util.c
+config.h
+-
+check.h
+-
+stdlib.h
+-
+util.h
+/home/roger/Projects/ksl/test/util.h
+
+config.h
+
+util.h
+math.h
+-
+stdbool.h
+-
+stdio.h
+-
+string.h
+-
+

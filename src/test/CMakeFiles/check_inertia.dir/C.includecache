@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/roger/Projects/ksl/test/check_inertia.c
+config.h
+-
+check.h
+-
+stdlib.h
+-
+inertia.h
+/home/roger/Projects/ksl/test/inertia.h
+
+axis.h
+vector.h
+vector.h
+
+config.h
+
+inertia.h
+matrix.h
+matrix.h
+vector.h
+vector.h
+
+matrix.h
+axis.h
+axis.h
+
+vector.h
+

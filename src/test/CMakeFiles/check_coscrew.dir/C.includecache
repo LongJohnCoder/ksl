@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/roger/Projects/ksl/test/check_coscrew.c
+config.h
+-
+check.h
+-
+stdlib.h
+-
+coscrew.h
+/home/roger/Projects/ksl/test/coscrew.h
+
+axis.h
+vector.h
+vector.h
+
+config.h
+
+coscrew.h
+matrix.h
+matrix.h
+
+matrix.h
+axis.h
+axis.h
+
+vector.h
+

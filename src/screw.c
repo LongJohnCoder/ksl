@@ -497,14 +497,14 @@ inline void ksl_cross_sst(const ksl_screw_t* restrict s1i,
                           const ksl_screw_t* restrict s2i,
                           ksl_screw_t* restrict so) {
   ksl_cross_vv(&s1i->ang, &s2i->lin, &so->lin);
-  memset(&so->ang, 0, sizeof(ksl_screw_t));
+  memset(&so->ang, 0, sizeof(ksl_vec3_t));
 }
 
 inline void ksl_cross_sstf(const ksl_screwf_t* restrict s1i,
                            const ksl_screwf_t* restrict s2i,
                            ksl_screwf_t* restrict so) {
   ksl_cross_vvf(&s1i->ang, &s2i->lin, &so->lin);
-  memset(&so->ang, 0, sizeof(ksl_screwf_t));
+  memset(&so->ang, 0, sizeof(ksl_vec3f_t));
 }
 
 /*!
@@ -568,9 +568,9 @@ inline void ksl_product_Ads(const ksl_SE3_t* restrict Di,
 
   ksl_product_Adrs(&Di->R, si, so);
 
-  so->m3 += Di->t.y * so->m2 - Di->t.z * so->m1;
-  so->m4 += Di->t.z * so->m0 - Di->t.x * so->m2;
-  so->m5 += Di->t.x * so->m1 - Di->t.y * so->m0;
+  so->m0 += Di->t.y * so->m5 - Di->t.z * so->m4;
+  so->m1 += Di->t.z * so->m3 - Di->t.x * so->m5;
+  so->m2 += Di->t.x * so->m4 - Di->t.y * so->m3;
 }
 
 /*!
@@ -592,9 +592,9 @@ inline void ksl_product_Adsf(const ksl_SE3f_t* restrict Di,
 
   ksl_product_Adrsf(&Di->R, si, so);
 
-  so->m3 += Di->t.y * so->m2 - Di->t.z * so->m1;
-  so->m4 += Di->t.z * so->m0 - Di->t.x * so->m2;
-  so->m5 += Di->t.x * so->m1 - Di->t.y * so->m0;
+  so->m0 += Di->t.y * so->m5 - Di->t.z * so->m4;
+  so->m1 += Di->t.z * so->m3 - Di->t.x * so->m5;
+  so->m2 += Di->t.x * so->m4 - Di->t.y * so->m3;
 }
 
 void ksl_product_Adrsinv(const ksl_mat3x3_t* restrict ri,
