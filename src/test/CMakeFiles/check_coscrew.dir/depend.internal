@@ -7,4 +7,5 @@ test/CMakeFiles/check_coscrew.dir/check_coscrew.c.o
  config.h
  coscrew.h
  matrix.h
+ screw.h
  vector.h

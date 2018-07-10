@@ -9,6 +9,7 @@ CMakeFiles/ksl.dir/coscrew.c.o: axis.h
 CMakeFiles/ksl.dir/coscrew.c.o: coscrew.c
 CMakeFiles/ksl.dir/coscrew.c.o: coscrew.h
 CMakeFiles/ksl.dir/coscrew.c.o: matrix.h
+CMakeFiles/ksl.dir/coscrew.c.o: screw.h
 CMakeFiles/ksl.dir/coscrew.c.o: vector.h
 
 CMakeFiles/ksl.dir/inertia.c.o: axis.h

@@ -1,10 +1,10 @@
-Start testing: Jul 04 14:56 CDT
+Start testing: Jul 10 15:18 CDT
 ----------------------------------------------------------
 1/10 Testing: check_axis
 1/10 Test: check_axis
 Command: "/home/roger/Projects/ksl/src/test/check_axis"
 Directory: /home/roger/Projects/ksl/src
-"check_axis" start time: Jul 04 14:56 CDT
+"check_axis" start time: Jul 10 15:18 CDT
 Output:
 ----------------------------------------------------------
 Running suite(s): axis
@@ -13,7 +13,7 @@ Running suite(s): axis
 Test time =   0.00 sec
 ----------------------------------------------------------
 Test Passed.
-"check_axis" end time: Jul 04 14:56 CDT
+"check_axis" end time: Jul 10 15:18 CDT
 "check_axis" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -21,16 +21,16 @@ Test Passed.
 2/10 Test: check_coscrew
 Command: "/home/roger/Projects/ksl/src/test/check_coscrew"
 Directory: /home/roger/Projects/ksl/src
-"check_coscrew" start time: Jul 04 14:56 CDT
+"check_coscrew" start time: Jul 10 15:18 CDT
 Output:
 ----------------------------------------------------------
 Running suite(s): coscrew
-100%: Checks: 1, Failures: 0, Errors: 0
+100%: Checks: 76, Failures: 0, Errors: 0
 <end of output>
-Test time =   0.00 sec
+Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"check_coscrew" end time: Jul 04 14:56 CDT
+"check_coscrew" end time: Jul 10 15:18 CDT
 "check_coscrew" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -38,7 +38,7 @@ Test Passed.
 3/10 Test: check_inertia
 Command: "/home/roger/Projects/ksl/src/test/check_inertia"
 Directory: /home/roger/Projects/ksl/src
-"check_inertia" start time: Jul 04 14:56 CDT
+"check_inertia" start time: Jul 10 15:18 CDT
 Output:
 ----------------------------------------------------------
 Running suite(s): inertia
@@ -47,7 +47,7 @@ Running suite(s): inertia
 Test time =   0.00 sec
 ----------------------------------------------------------
 Test Passed.
-"check_inertia" end time: Jul 04 14:56 CDT
+"check_inertia" end time: Jul 10 15:18 CDT
 "check_inertia" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -55,7 +55,7 @@ Test Passed.
 4/10 Test: check_linalg
 Command: "/home/roger/Projects/ksl/src/test/check_linalg"
 Directory: /home/roger/Projects/ksl/src
-"check_linalg" start time: Jul 04 14:56 CDT
+"check_linalg" start time: Jul 10 15:18 CDT
 Output:
 ----------------------------------------------------------
 Running suite(s): linalg
@@ -64,7 +64,7 @@ Running suite(s): linalg
 Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"check_linalg" end time: Jul 04 14:56 CDT
+"check_linalg" end time: Jul 10 15:18 CDT
 "check_linalg" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -72,7 +72,7 @@ Test Passed.
 5/10 Test: check_matrix
 Command: "/home/roger/Projects/ksl/src/test/check_matrix"
 Directory: /home/roger/Projects/ksl/src
-"check_matrix" start time: Jul 04 14:56 CDT
+"check_matrix" start time: Jul 10 15:18 CDT
 Output:
 ----------------------------------------------------------
 Running suite(s): matrix
@@ -81,7 +81,7 @@ Running suite(s): matrix
 Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"check_matrix" end time: Jul 04 14:56 CDT
+"check_matrix" end time: Jul 10 15:18 CDT
 "check_matrix" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -89,7 +89,7 @@ Test Passed.
 6/10 Test: check_quaternion
 Command: "/home/roger/Projects/ksl/src/test/check_quaternion"
 Directory: /home/roger/Projects/ksl/src
-"check_quaternion" start time: Jul 04 14:56 CDT
+"check_quaternion" start time: Jul 10 15:18 CDT
 Output:
 ----------------------------------------------------------
 Running suite(s): quaternion
@@ -98,7 +98,7 @@ Running suite(s): quaternion
 Test time =   0.00 sec
 ----------------------------------------------------------
 Test Passed.
-"check_quaternion" end time: Jul 04 14:56 CDT
+"check_quaternion" end time: Jul 10 15:18 CDT
 "check_quaternion" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -106,16 +106,16 @@ Test Passed.
 7/10 Test: check_screw
 Command: "/home/roger/Projects/ksl/src/test/check_screw"
 Directory: /home/roger/Projects/ksl/src
-"check_screw" start time: Jul 04 14:56 CDT
+"check_screw" start time: Jul 10 15:18 CDT
 Output:
 ----------------------------------------------------------
 Running suite(s): screw
-100%: Checks: 74, Failures: 0, Errors: 0
+100%: Checks: 78, Failures: 0, Errors: 0
 <end of output>
 Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"check_screw" end time: Jul 04 14:56 CDT
+"check_screw" end time: Jul 10 15:18 CDT
 "check_screw" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -123,7 +123,7 @@ Test Passed.
 8/10 Test: check_util
 Command: "/home/roger/Projects/ksl/src/test/check_util"
 Directory: /home/roger/Projects/ksl/src
-"check_util" start time: Jul 04 14:56 CDT
+"check_util" start time: Jul 10 15:18 CDT
 Output:
 ----------------------------------------------------------
 Running suite(s): util
@@ -132,7 +132,7 @@ Running suite(s): util
 Test time =   0.00 sec
 ----------------------------------------------------------
 Test Passed.
-"check_util" end time: Jul 04 14:56 CDT
+"check_util" end time: Jul 10 15:18 CDT
 "check_util" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -140,7 +140,7 @@ Test Passed.
 9/10 Test: check_vector
 Command: "/home/roger/Projects/ksl/src/test/check_vector"
 Directory: /home/roger/Projects/ksl/src
-"check_vector" start time: Jul 04 14:56 CDT
+"check_vector" start time: Jul 10 15:18 CDT
 Output:
 ----------------------------------------------------------
 Running suite(s): vector
@@ -149,7 +149,7 @@ Running suite(s): vector
 Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"check_vector" end time: Jul 04 14:56 CDT
+"check_vector" end time: Jul 10 15:18 CDT
 "check_vector" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -157,7 +157,7 @@ Test Passed.
 10/10 Test: check_print
 Command: "/home/roger/Projects/ksl/src/test/check_print"
 Directory: /home/roger/Projects/ksl/src
-"check_print" start time: Jul 04 14:56 CDT
+"check_print" start time: Jul 10 15:18 CDT
 Output:
 ----------------------------------------------------------
 Running suite(s): print
@@ -166,8 +166,8 @@ Running suite(s): print
 Test time =   0.00 sec
 ----------------------------------------------------------
 Test Passed.
-"check_print" end time: Jul 04 14:56 CDT
+"check_print" end time: Jul 10 15:18 CDT
 "check_print" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Jul 04 14:56 CDT
+End testing: Jul 10 15:18 CDT

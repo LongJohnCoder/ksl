@@ -17,6 +17,8 @@ vector.h
 /home/roger/Projects/ksl/src/vector.h
 
 /home/roger/Projects/ksl/src/coscrew.c
+math.h
+-
 stdlib.h
 -
 string.h
@@ -25,6 +27,10 @@ coscrew.h
 /home/roger/Projects/ksl/src/coscrew.h
 matrix.h
 /home/roger/Projects/ksl/src/matrix.h
+screw.h
+/home/roger/Projects/ksl/src/screw.h
+vector.h
+/home/roger/Projects/ksl/src/vector.h
 
 /home/roger/Projects/ksl/src/coscrew.h
 matrix.h

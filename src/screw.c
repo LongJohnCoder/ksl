@@ -54,50 +54,50 @@ ksl_screwf_t* ksl_screwf_alloc(const int n) {
 /*!
 @todo
 */
-inline double ksl_screw_norm(const ksl_screw_t* restrict v) {
+inline double ksl_screw_norm(const ksl_screw_t* restrict s) {
   const double eps = 1e-9;
-  if((fabs(v->ang.x) < eps) && (fabs(v->ang.y) < eps) &&
-     (fabs(v->ang.z) < eps)) {
-    return (ksl_vec3_l2norm(&v->lin));
+  if((fabs(s->ang.x) < eps) && (fabs(s->ang.y) < eps) &&
+     (fabs(s->ang.z) < eps)) {
+    return (ksl_vec3_l2norm(&s->lin));
   } else {
-    return (ksl_vec3_l2norm(&v->ang));
+    return (ksl_vec3_l2norm(&s->ang));
   }
 }
 
 /*!
 @todo
 */
-inline float ksl_screwf_norm(const ksl_screwf_t* restrict v) {
+inline float ksl_screwf_norm(const ksl_screwf_t* restrict s) {
   const float eps = 1e-6;
-  if((fabs(v->ang.x) < eps) && (fabs(v->ang.y) < eps) &&
-     (fabs(v->ang.z) < eps)) {
-    return (ksl_vec3f_l2norm(&v->lin));
+  if((fabs(s->ang.x) < eps) && (fabs(s->ang.y) < eps) &&
+     (fabs(s->ang.z) < eps)) {
+    return (ksl_vec3f_l2norm(&s->lin));
   } else {
-    return (ksl_vec3f_l2norm(&v->ang));
+    return (ksl_vec3f_l2norm(&s->ang));
   }
 }
 
-inline void ksl_screw_normalize(ksl_screw_t* v) {
+inline void ksl_screw_normalize(ksl_screw_t* s) {
   const double eps = 1e-9;
-  if((fabs(v->ang.x) < eps) && (fabs(v->ang.y) < eps) &&
-     (fabs(v->ang.z) < eps)) {
-    ksl_vec3_normalize(&v->lin);
+  if((fabs(s->ang.x) < eps) && (fabs(s->ang.y) < eps) &&
+     (fabs(s->ang.z) < eps)) {
+    ksl_vec3_normalize(&s->lin);
   } else {
-    double ang_inv_norm = 1.0 / ksl_vec3_l2norm(&v->ang);
-    ksl_product_av(ang_inv_norm, &v->lin, &v->lin);
-    ksl_product_av(ang_inv_norm, &v->ang, &v->ang);
+    double ang_inv_norm = 1.0 / ksl_vec3_l2norm(&s->ang);
+    ksl_product_av(ang_inv_norm, &s->lin, &s->lin);
+    ksl_product_av(ang_inv_norm, &s->ang, &s->ang);
   }
 }
 
-inline void ksl_screwf_normalize(ksl_screwf_t* v) {
+inline void ksl_screwf_normalize(ksl_screwf_t* s) {
   const float eps = 1e-6;
-  if((fabs(v->ang.x) < eps) && (fabs(v->ang.y) < eps) &&
-     (fabs(v->ang.z) < eps)) {
-    ksl_vec3f_normalize(&v->lin);
+  if((fabs(s->ang.x) < eps) && (fabs(s->ang.y) < eps) &&
+     (fabs(s->ang.z) < eps)) {
+    ksl_vec3f_normalize(&s->lin);
   } else {
-    float ang_inv_norm = 1.0 / ksl_vec3f_l2norm(&v->ang);
-    ksl_product_avf(ang_inv_norm, &v->lin, &v->lin);
-    ksl_product_avf(ang_inv_norm, &v->ang, &v->ang);
+    float ang_inv_norm = 1.0 / ksl_vec3f_l2norm(&s->ang);
+    ksl_product_avf(ang_inv_norm, &s->lin, &s->lin);
+    ksl_product_avf(ang_inv_norm, &s->ang, &s->ang);
   }
 }
 
@@ -125,25 +125,15 @@ inline float ksl_dot_csf(const ksl_coscrewf_t* restrict ci,
   return sum;
 }
 
-/*!
-@brief compute axpy (a * x + y \rightarrow y) operation for double precision
-screws
-*/
-inline void ksl_axpy_ss(const double a, const ksl_screw_t* restrict x,
-                        ksl_screw_t* restrict y) {
+void ksl_screw_scale(ksl_screw_t* restrict s, const double k) {
   for(int i = 0; i < 6; i++) {
-    y->at[i] += a * x->at[i];
+    s->at[i] *= k;
   }
 }
 
-/*!
-@brief compute axpy (a * x + y \rightarrow y) operation for single precision
-screws
-*/
-inline void ksl_axpy_ssf(const float a, const ksl_screwf_t* restrict x,
-                         ksl_screwf_t* restrict y) {
+void ksl_screwf_scale(ksl_screwf_t* restrict s, const float k) {
   for(int i = 0; i < 6; i++) {
-    y->at[i] += a * x->at[i];
+    s->at[i] *= k;
   }
 }
 
@@ -171,6 +161,34 @@ inline void ksl_screw_copy(const ksl_screw_t* restrict si,
 inline void ksl_screwf_copy(const ksl_screwf_t* restrict si,
                             ksl_screwf_t* restrict so) {
   memcpy(so, si, sizeof(ksl_screwf_t));
+}
+
+/*!
+@brief Invert (i.e. negate) a ksl_screw_t in place.
+
+\f$\mathbf{\underline{s}}^{-1} \rightarrow \mathbf{\underline{s}}\f$
+\f$-\mathbf{\underline{s}} \rightarrow \mathbf{\underline{s}}\f$
+
+@param si [in/out] screw to invert
+*/
+inline void ksl_screw_invert(ksl_screw_t* restrict s) {
+  for(int i = 0; i < 6; i++) {
+    s->at[i] = -s->at[i];
+  }
+}
+
+/*!
+@brief Invert (i.e. negate) a ksl_screwf_t in place.
+
+\f$\mathbf{\underline{s}}^{-1} \rightarrow \mathbf{\underline{s}}\f$
+\f$-\mathbf{\underline{s}} \rightarrow \mathbf{\underline{s}}\f$
+
+@param si [in/out] screw to invert
+*/
+inline void ksl_screwf_invert(ksl_screwf_t* restrict s) {
+  for(int i = 0; i < 6; i++) {
+    s->at[i] = -s->at[i];
+  }
 }
 
 /*!
@@ -204,30 +222,52 @@ inline void ksl_screwf_inverted(const ksl_screwf_t* restrict si,
 }
 
 /*!
-@brief Invert (i.e. negate) a ksl_screw_t in place.
-
-\f$\mathbf{\underline{s}}^{-1} \rightarrow \mathbf{\underline{s}}\f$
-\f$-\mathbf{\underline{s}} \rightarrow \mathbf{\underline{s}}\f$
-
-@param si [in/out] screw to invert
+@brief compute axpy (a * x + y \rightarrow y) operation for double precision
+screws
 */
-inline void ksl_screw_invert(ksl_screw_t* restrict s) {
+inline void ksl_axpy_ss(const double a, const ksl_screw_t* restrict x,
+                        ksl_screw_t* restrict y) {
   for(int i = 0; i < 6; i++) {
-    s->at[i] = -s->at[i];
+    y->at[i] += a * x->at[i];
   }
 }
 
 /*!
-@brief Invert (i.e. negate) a ksl_screwf_t in place.
-
-\f$\mathbf{\underline{s}}^{-1} \rightarrow \mathbf{\underline{s}}\f$
-\f$-\mathbf{\underline{s}} \rightarrow \mathbf{\underline{s}}\f$
-
-@param si [in/out] screw to invert
+@brief compute axpy (a * x + y \rightarrow y) operation for single precision
+screws
 */
-inline void ksl_screwf_invert(ksl_screwf_t* restrict s) {
+inline void ksl_axpy_ssf(const float a, const ksl_screwf_t* restrict x,
+                         ksl_screwf_t* restrict y) {
   for(int i = 0; i < 6; i++) {
-    s->at[i] = -s->at[i];
+    y->at[i] += a * x->at[i];
+  }
+}
+
+inline void ksl_xpy_ss(const ksl_screw_t* restrict s1i,
+                       ksl_screw_t* restrict so) {
+  for(int i = 0; i < 6; i++) {
+    so->at[i] += s1i->at[i];
+  }
+}
+
+inline void ksl_xpy_ssf(const ksl_screwf_t* restrict s1i,
+                        ksl_screwf_t* restrict so) {
+  for(int i = 0; i < 6; i++) {
+    so->at[i] += s1i->at[i];
+  }
+}
+
+inline void ksl_nxpy_ss(const ksl_screw_t* restrict s1i,
+                        ksl_screw_t* restrict so) {
+  for(int i = 0; i < 6; i++) {
+    so->at[i] -= s1i->at[i];
+  }
+}
+
+inline void ksl_nxpy_ssf(const ksl_screwf_t* restrict s1i,
+                         ksl_screwf_t* restrict so) {
+  for(int i = 0; i < 6; i++) {
+    so->at[i] -= s1i->at[i];
   }
 }
 
@@ -261,20 +301,6 @@ inline void ksl_add_ssf(const ksl_screwf_t* restrict s1i,
   }
 }
 
-inline void ksl_xpy_ss(const ksl_screw_t* restrict s1i,
-                       ksl_screw_t* restrict so) {
-  for(int i = 0; i < 6; i++) {
-    so->at[i] += s1i->at[i];
-  }
-}
-
-inline void ksl_xpy_ssf(const ksl_screwf_t* restrict s1i,
-                        ksl_screwf_t* restrict so) {
-  for(int i = 0; i < 6; i++) {
-    so->at[i] += s1i->at[i];
-  }
-}
-
 inline void ksl_subtract_ss(const ksl_screw_t* restrict s1i,
                             const ksl_screw_t* restrict s2i,
                             ksl_screw_t* restrict so) {
@@ -288,20 +314,6 @@ inline void ksl_subtract_ssf(const ksl_screwf_t* restrict s1i,
                              ksl_screwf_t* restrict so) {
   for(int i = 0; i < 6; i++) {
     so->at[i] = s1i->at[i] - s2i->at[i];
-  }
-}
-
-inline void ksl_nxpy_ss(const ksl_screw_t* restrict s1i,
-                        ksl_screw_t* restrict so) {
-  for(int i = 0; i < 6; i++) {
-    so->at[i] -= s1i->at[i];
-  }
-}
-
-inline void ksl_nxpy_ssf(const ksl_screwf_t* restrict s1i,
-                         ksl_screwf_t* restrict so) {
-  for(int i = 0; i < 6; i++) {
-    so->at[i] -= s1i->at[i];
   }
 }
 
@@ -327,130 +339,142 @@ inline void ksl_add_sstf(const ksl_screwf_t* restrict si1,
   ksl_screwf_copy(&s, so);
 }
 
-inline void ksl_htx(const ksl_SE3_t* restrict Di, ksl_screw_t* restrict ho) {
-  ksl_vec3_copy(&Di->R.v0, &ho->lin);
-  memset(&ho->ang, 0, 3 * sizeof(double));
+inline void ksl_hstx(const ksl_SE3_t* restrict Di, ksl_screw_t* restrict hso) {
+  ksl_vec3_copy(&Di->R.v0, &hso->lin);
+  memset(&hso->ang, 0, 3 * sizeof(double));
 }
 
-inline void ksl_htxf(const ksl_SE3f_t* restrict Di, ksl_screwf_t* restrict ho) {
-  ksl_vec3f_copy(&Di->R.v0, &ho->lin);
-  memset(&ho->ang, 0, 3 * sizeof(float));
+inline void ksl_hstxf(const ksl_SE3f_t* restrict Di,
+                      ksl_screwf_t* restrict hso) {
+  ksl_vec3f_copy(&Di->R.v0, &hso->lin);
+  memset(&hso->ang, 0, 3 * sizeof(float));
 }
 
-inline void ksl_hty(const ksl_SE3_t* restrict Di, ksl_screw_t* restrict ho) {
-  ksl_vec3_copy(&Di->R.v1, &ho->lin);
-  memset(&ho->ang, 0, 3 * sizeof(double));
+inline void ksl_hsty(const ksl_SE3_t* restrict Di, ksl_screw_t* restrict hso) {
+  ksl_vec3_copy(&Di->R.v1, &hso->lin);
+  memset(&hso->ang, 0, 3 * sizeof(double));
 }
 
-inline void ksl_htyf(const ksl_SE3f_t* restrict Di, ksl_screwf_t* restrict ho) {
-  ksl_vec3f_copy(&Di->R.v1, &ho->lin);
-  memset(&ho->ang, 0, 3 * sizeof(float));
+inline void ksl_hstyf(const ksl_SE3f_t* restrict Di,
+                      ksl_screwf_t* restrict hso) {
+  ksl_vec3f_copy(&Di->R.v1, &hso->lin);
+  memset(&hso->ang, 0, 3 * sizeof(float));
 }
 
-inline void ksl_htz(const ksl_SE3_t* restrict Di, ksl_screw_t* restrict ho) {
-  ksl_vec3_copy(&Di->R.v2, &ho->lin);
-  memset(&ho->ang, 0, 3 * sizeof(double));
+inline void ksl_hstz(const ksl_SE3_t* restrict Di, ksl_screw_t* restrict hso) {
+  ksl_vec3_copy(&Di->R.v2, &hso->lin);
+  memset(&hso->ang, 0, 3 * sizeof(double));
 }
 
-inline void ksl_htzf(const ksl_SE3f_t* restrict Di, ksl_screwf_t* restrict ho) {
-  ksl_vec3f_copy(&Di->R.v2, &ho->lin);
-  memset(&ho->ang, 0, 3 * sizeof(float));
+inline void ksl_hstzf(const ksl_SE3f_t* restrict Di,
+                      ksl_screwf_t* restrict hso) {
+  ksl_vec3f_copy(&Di->R.v2, &hso->lin);
+  memset(&hso->ang, 0, 3 * sizeof(float));
 }
 
-inline void ksl_hrx(const ksl_SE3_t* restrict Di, ksl_screw_t* restrict ho) {
-  ksl_vec3_copy(&Di->R.v0, &ho->ang);
-  ksl_cross_vv(&Di->t, &ho->ang, &ho->lin);
+inline void ksl_hsrx(const ksl_SE3_t* restrict Di, ksl_screw_t* restrict hso) {
+  ksl_vec3_copy(&Di->R.v0, &hso->ang);
+  ksl_cross_vv(&Di->t, &hso->ang, &hso->lin);
 }
 
-inline void ksl_hrxf(const ksl_SE3f_t* restrict Di, ksl_screwf_t* restrict ho) {
-  ksl_vec3f_copy(&Di->R.v0, &ho->ang);
-  ksl_cross_vvf(&Di->t, &ho->ang, &ho->lin);
+inline void ksl_hsrxf(const ksl_SE3f_t* restrict Di,
+                      ksl_screwf_t* restrict hso) {
+  ksl_vec3f_copy(&Di->R.v0, &hso->ang);
+  ksl_cross_vvf(&Di->t, &hso->ang, &hso->lin);
 }
 
-inline void ksl_hry(const ksl_SE3_t* restrict Di, ksl_screw_t* restrict ho) {
-  ksl_vec3_copy(&Di->R.v1, &ho->ang);
-  ksl_cross_vv(&Di->t, &ho->ang, &ho->lin);
+inline void ksl_hsry(const ksl_SE3_t* restrict Di, ksl_screw_t* restrict hso) {
+  ksl_vec3_copy(&Di->R.v1, &hso->ang);
+  ksl_cross_vv(&Di->t, &hso->ang, &hso->lin);
 }
 
-inline void ksl_hryf(const ksl_SE3f_t* restrict Di, ksl_screwf_t* restrict ho) {
-  ksl_vec3f_copy(&Di->R.v1, &ho->ang);
-  ksl_cross_vvf(&Di->t, &ho->ang, &ho->lin);
+inline void ksl_hsryf(const ksl_SE3f_t* restrict Di,
+                      ksl_screwf_t* restrict hso) {
+  ksl_vec3f_copy(&Di->R.v1, &hso->ang);
+  ksl_cross_vvf(&Di->t, &hso->ang, &hso->lin);
 }
 
-inline void ksl_hrz(const ksl_SE3_t* restrict Di, ksl_screw_t* restrict ho) {
-  ksl_vec3_copy(&Di->R.v2, &ho->ang);
-  ksl_cross_vv(&Di->t, &ho->ang, &ho->lin);
+inline void ksl_hsrz(const ksl_SE3_t* restrict Di, ksl_screw_t* restrict hso) {
+  ksl_vec3_copy(&Di->R.v2, &hso->ang);
+  ksl_cross_vv(&Di->t, &hso->ang, &hso->lin);
 }
 
-inline void ksl_hrzf(const ksl_SE3f_t* restrict Di, ksl_screwf_t* restrict ho) {
-  ksl_vec3f_copy(&Di->R.v2, &ho->ang);
-  ksl_cross_vvf(&Di->t, &ho->ang, &ho->lin);
+inline void ksl_hsrzf(const ksl_SE3f_t* restrict Di,
+                      ksl_screwf_t* restrict hso) {
+  ksl_vec3f_copy(&Di->R.v2, &hso->ang);
+  ksl_cross_vvf(&Di->t, &hso->ang, &hso->lin);
 }
 
-inline void ksl_htxinv(const ksl_SE3_t* restrict Di, ksl_screw_t* restrict ho) {
-  ksl_vec3_inverted(&Di->R.v0, &ho->lin);
-  memset(&ho->ang, 0, 3 * sizeof(double));
+inline void ksl_hstxinv(const ksl_SE3_t* restrict Di,
+                        ksl_screw_t* restrict hso) {
+  ksl_vec3_inverted(&Di->R.v0, &hso->lin);
+  memset(&hso->ang, 0, 3 * sizeof(double));
 }
 
-inline void ksl_htxinvf(const ksl_SE3f_t* restrict Di,
-                        ksl_screwf_t* restrict ho) {
-  ksl_vec3f_inverted(&Di->R.v0, &ho->lin);
-  memset(&ho->ang, 0, 3 * sizeof(float));
+inline void ksl_hstxinvf(const ksl_SE3f_t* restrict Di,
+                         ksl_screwf_t* restrict hso) {
+  ksl_vec3f_inverted(&Di->R.v0, &hso->lin);
+  memset(&hso->ang, 0, 3 * sizeof(float));
 }
 
-inline void ksl_htyinv(const ksl_SE3_t* restrict Di, ksl_screw_t* restrict ho) {
-  ksl_vec3_inverted(&Di->R.v1, &ho->lin);
-  memset(&ho->ang, 0, 3 * sizeof(double));
+inline void ksl_hstyinv(const ksl_SE3_t* restrict Di,
+                        ksl_screw_t* restrict hso) {
+  ksl_vec3_inverted(&Di->R.v1, &hso->lin);
+  memset(&hso->ang, 0, 3 * sizeof(double));
 }
 
-inline void ksl_htyinvf(const ksl_SE3f_t* restrict Di,
-                        ksl_screwf_t* restrict ho) {
-  ksl_vec3f_inverted(&Di->R.v1, &ho->lin);
-  memset(&ho->ang, 0, 3 * sizeof(float));
+inline void ksl_hstyinvf(const ksl_SE3f_t* restrict Di,
+                         ksl_screwf_t* restrict hso) {
+  ksl_vec3f_inverted(&Di->R.v1, &hso->lin);
+  memset(&hso->ang, 0, 3 * sizeof(float));
 }
 
-inline void ksl_htzinv(const ksl_SE3_t* restrict Di, ksl_screw_t* restrict ho) {
-  ksl_vec3_inverted(&Di->R.v2, &ho->lin);
-  memset(&ho->ang, 0, 3 * sizeof(double));
+inline void ksl_hstzinv(const ksl_SE3_t* restrict Di,
+                        ksl_screw_t* restrict hso) {
+  ksl_vec3_inverted(&Di->R.v2, &hso->lin);
+  memset(&hso->ang, 0, 3 * sizeof(double));
 }
 
-inline void ksl_htzinvf(const ksl_SE3f_t* restrict Di,
-                        ksl_screwf_t* restrict ho) {
-  ksl_vec3f_inverted(&Di->R.v2, &ho->lin);
-  memset(&ho->ang, 0, 3 * sizeof(float));
+inline void ksl_hstzinvf(const ksl_SE3f_t* restrict Di,
+                         ksl_screwf_t* restrict hso) {
+  ksl_vec3f_inverted(&Di->R.v2, &hso->lin);
+  memset(&hso->ang, 0, 3 * sizeof(float));
 }
 
-inline void ksl_hrxinv(const ksl_SE3_t* restrict Di, ksl_screw_t* restrict ho) {
-  ksl_vec3_inverted(&Di->R.v0, &ho->ang);
-  ksl_cross_vv(&Di->t, &ho->ang, &ho->lin);
+inline void ksl_hsrxinv(const ksl_SE3_t* restrict Di,
+                        ksl_screw_t* restrict hso) {
+  ksl_vec3_inverted(&Di->R.v0, &hso->ang);
+  ksl_cross_vv(&Di->t, &hso->ang, &hso->lin);
 }
 
-inline void ksl_hrxinvf(const ksl_SE3f_t* restrict Di,
-                        ksl_screwf_t* restrict ho) {
-  ksl_vec3f_inverted(&Di->R.v0, &ho->ang);
-  ksl_cross_vvf(&Di->t, &ho->ang, &ho->lin);
+inline void ksl_hsrxinvf(const ksl_SE3f_t* restrict Di,
+                         ksl_screwf_t* restrict hso) {
+  ksl_vec3f_inverted(&Di->R.v0, &hso->ang);
+  ksl_cross_vvf(&Di->t, &hso->ang, &hso->lin);
 }
 
-inline void ksl_hryinv(const ksl_SE3_t* restrict Di, ksl_screw_t* restrict ho) {
-  ksl_vec3_inverted(&Di->R.v1, &ho->ang);
-  ksl_cross_vv(&Di->t, &ho->ang, &ho->lin);
+inline void ksl_hsryinv(const ksl_SE3_t* restrict Di,
+                        ksl_screw_t* restrict hso) {
+  ksl_vec3_inverted(&Di->R.v1, &hso->ang);
+  ksl_cross_vv(&Di->t, &hso->ang, &hso->lin);
 }
 
-inline void ksl_hryinvf(const ksl_SE3f_t* restrict Di,
-                        ksl_screwf_t* restrict ho) {
-  ksl_vec3f_inverted(&Di->R.v1, &ho->ang);
-  ksl_cross_vvf(&Di->t, &ho->ang, &ho->lin);
+inline void ksl_hsryinvf(const ksl_SE3f_t* restrict Di,
+                         ksl_screwf_t* restrict hso) {
+  ksl_vec3f_inverted(&Di->R.v1, &hso->ang);
+  ksl_cross_vvf(&Di->t, &hso->ang, &hso->lin);
 }
 
-inline void ksl_hrzinv(const ksl_SE3_t* restrict Di, ksl_screw_t* restrict ho) {
-  ksl_vec3_inverted(&Di->R.v2, &ho->ang);
-  ksl_cross_vv(&Di->t, &ho->ang, &ho->lin);
+inline void ksl_hsrzinv(const ksl_SE3_t* restrict Di,
+                        ksl_screw_t* restrict hso) {
+  ksl_vec3_inverted(&Di->R.v2, &hso->ang);
+  ksl_cross_vv(&Di->t, &hso->ang, &hso->lin);
 }
 
-inline void ksl_hrzinvf(const ksl_SE3f_t* restrict Di,
-                        ksl_screwf_t* restrict ho) {
-  ksl_vec3f_inverted(&Di->R.v2, &ho->ang);
-  ksl_cross_vvf(&Di->t, &ho->ang, &ho->lin);
+inline void ksl_hsrzinvf(const ksl_SE3f_t* restrict Di,
+                         ksl_screwf_t* restrict hso) {
+  ksl_vec3f_inverted(&Di->R.v2, &hso->ang);
+  ksl_cross_vvf(&Di->t, &hso->ang, &hso->lin);
 }
 
 inline void ksl_cross_ss(const ksl_screw_t* restrict s1i,
@@ -549,54 +573,6 @@ inline void ksl_product_Adrsf(const ksl_mat3x3f_t* restrict ri,
   ksl_product_drvf(ri, &si->ang, &so->ang);
 }
 
-/*!
-@brief General spatial transformation a double precision screw
-
-Store product of direction cosine matrix ri with spatial vector si in so.
-
-\f$ R_i * S_i[0:2] \rightarrow S_o[0:2]\f$
-
-\f$ R_i * S_i[3:5] \rightarrow S_o[3:5]\f$
-
-@param ri a SO3 rotation matrix
-@param si a 1x6 screw
-@param so the output of ri * si is returned in so
-*/
-inline void ksl_product_Ads(const ksl_SE3_t* restrict Di,
-                            const ksl_screw_t* restrict si,
-                            ksl_screw_t* restrict so) {
-
-  ksl_product_Adrs(&Di->R, si, so);
-
-  so->m0 += Di->t.y * so->m5 - Di->t.z * so->m4;
-  so->m1 += Di->t.z * so->m3 - Di->t.x * so->m5;
-  so->m2 += Di->t.x * so->m4 - Di->t.y * so->m3;
-}
-
-/*!
-@brief General spatial transformation a single precision screw
-
-Store product of direction cosine matrix ri with spatial vector si in so.
-
-\f$ R_i * S_i[0:2] \rightarrow S_o[0:2]\f$
-
-\f$ R_i * S_i[3:5] \rightarrow S_o[3:5]\f$
-
-@param ri a SO3 rotation matrix
-@param si a 1x6 screw
-@param so the output of ri * si is returned in so
-*/
-inline void ksl_product_Adsf(const ksl_SE3f_t* restrict Di,
-                             const ksl_screwf_t* restrict si,
-                             ksl_screwf_t* restrict so) {
-
-  ksl_product_Adrsf(&Di->R, si, so);
-
-  so->m0 += Di->t.y * so->m5 - Di->t.z * so->m4;
-  so->m1 += Di->t.z * so->m3 - Di->t.x * so->m5;
-  so->m2 += Di->t.x * so->m4 - Di->t.y * so->m3;
-}
-
 void ksl_product_Adrsinv(const ksl_mat3x3_t* restrict ri,
                          const ksl_screw_t* restrict si,
                          ksl_screw_t* restrict so) {
@@ -675,10 +651,10 @@ inline void ksl_product_Adtsinv(const ksl_vec3_t* restrict ti,
                                 ksl_screw_t* restrict so) {
   ksl_screw_inverted(si, so);
 
-  /* vo -= ti x w2i */
-  so->m0 -= ti->y * si->m5 - ti->z * si->m4;
-  so->m1 -= ti->z * si->m3 - ti->x * si->m5;
-  so->m2 -= ti->x * si->m4 - ti->y * si->m3;
+  /* vo += ti x w2i */
+  so->m0 += ti->y * so->m5 - ti->z * so->m4;
+  so->m1 += ti->z * so->m3 - ti->x * so->m5;
+  so->m2 += ti->x * so->m4 - ti->y * so->m3;
 }
 
 inline void ksl_product_Adtsinvf(const ksl_vec3f_t* restrict ti,
@@ -686,16 +662,73 @@ inline void ksl_product_Adtsinvf(const ksl_vec3f_t* restrict ti,
                                  ksl_screwf_t* restrict so) {
   ksl_screwf_inverted(si, so);
 
-  /* vo -= ti x w2i */
-  so->m0 -= ti->y * si->m5 - ti->z * si->m4;
-  so->m1 -= ti->z * si->m3 - ti->x * si->m5;
-  so->m2 -= ti->x * si->m4 - ti->y * si->m3;
+  /* vo += ti x w2i */
+  so->m0 += ti->y * so->m5 - ti->z * so->m4;
+  so->m1 += ti->z * so->m3 - ti->x * so->m5;
+  so->m2 += ti->x * so->m4 - ti->y * so->m3;
+}
+
+/*!
+@brief General spatial transformation a double precision screw
+
+Store product of direction cosine matrix ri with spatial vector si in so.
+
+\f$ R_i * S_i[0:2] \rightarrow S_o[0:2]\f$
+
+\f$ R_i * S_i[3:5] \rightarrow S_o[3:5]\f$
+
+@param ri a SO3 rotation matrix
+@param si a 1x6 screw
+@param so the output of ri * si is returned in so
+*/
+inline void ksl_product_Ads(const ksl_SE3_t* restrict Di,
+                            const ksl_screw_t* restrict si,
+                            ksl_screw_t* restrict so) {
+
+  ksl_product_Adrs(&Di->R, si, so);
+
+  so->m0 += Di->t.y * so->m5 - Di->t.z * so->m4;
+  so->m1 += Di->t.z * so->m3 - Di->t.x * so->m5;
+  so->m2 += Di->t.x * so->m4 - Di->t.y * so->m3;
+}
+
+/*!
+@brief General spatial transformation a single precision screw
+
+Store product of direction cosine matrix ri with spatial vector si in so.
+
+\f$ R_i * S_i[0:2] \rightarrow S_o[0:2]\f$
+
+\f$ R_i * S_i[3:5] \rightarrow S_o[3:5]\f$
+
+@param ri a SO3 rotation matrix
+@param si a 1x6 screw
+@param so the output of ri * si is returned in so
+*/
+inline void ksl_product_Adsf(const ksl_SE3f_t* restrict Di,
+                             const ksl_screwf_t* restrict si,
+                             ksl_screwf_t* restrict so) {
+
+  ksl_product_Adrsf(&Di->R, si, so);
+
+  so->m0 += Di->t.y * so->m5 - Di->t.z * so->m4;
+  so->m1 += Di->t.z * so->m3 - Di->t.x * so->m5;
+  so->m2 += Di->t.x * so->m4 - Di->t.y * so->m3;
 }
 
 inline void ksl_product_Adsinv(const ksl_SE3_t* restrict Di,
                                const ksl_screw_t* restrict si,
                                ksl_screw_t* restrict so) {
   ksl_product_Adrsinv(&(Di->R), si, so);
+  so->m0 += Di->t.y * so->m5 - Di->t.z * so->m4;
+  so->m1 += Di->t.z * so->m3 - Di->t.x * so->m5;
+  so->m2 += Di->t.x * so->m4 - Di->t.y * so->m3;
+}
+
+inline void ksl_product_Adsinvf(const ksl_SE3f_t* restrict Di,
+                                const ksl_screwf_t* restrict si,
+                                ksl_screwf_t* restrict so) {
+  ksl_product_Adrsinvf(&(Di->R), si, so);
   so->m0 += Di->t.y * so->m5 - Di->t.z * so->m4;
   so->m1 += Di->t.z * so->m3 - Di->t.x * so->m5;
   so->m2 += Di->t.x * so->m4 - Di->t.y * so->m3;

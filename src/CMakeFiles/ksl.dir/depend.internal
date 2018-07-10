@@ -10,6 +10,7 @@ CMakeFiles/ksl.dir/coscrew.c.o
  /home/roger/Projects/ksl/src/coscrew.c
  /home/roger/Projects/ksl/src/coscrew.h
  /home/roger/Projects/ksl/src/matrix.h
+ /home/roger/Projects/ksl/src/screw.h
  /home/roger/Projects/ksl/src/vector.h
 CMakeFiles/ksl.dir/inertia.c.o
  /home/roger/Projects/ksl/src/axis.h

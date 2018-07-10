@@ -11,10 +11,14 @@ config.h
 -
 check.h
 -
+stdio.h
+-
 stdlib.h
 -
 coscrew.h
 /home/roger/Projects/ksl/test/coscrew.h
+screw.h
+/home/roger/Projects/ksl/test/screw.h
 
 axis.h
 vector.h
@@ -29,6 +33,10 @@ matrix.h
 matrix.h
 axis.h
 axis.h
+
+screw.h
+matrix.h
+matrix.h
 
 vector.h
 
