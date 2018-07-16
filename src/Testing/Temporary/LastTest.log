@@ -1,0 +1,173 @@
+Start testing: Jul 16 12:47 CDT
+----------------------------------------------------------
+1/10 Testing: check_axis
+1/10 Test: check_axis
+Command: "/home/roger/Projects/ksl/src/test/check_axis"
+Directory: /home/roger/Projects/ksl/src
+"check_axis" start time: Jul 16 12:47 CDT
+Output:
+----------------------------------------------------------
+Running suite(s): axis
+100%: Checks: 1, Failures: 0, Errors: 0
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"check_axis" end time: Jul 16 12:47 CDT
+"check_axis" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/10 Testing: check_coscrew
+2/10 Test: check_coscrew
+Command: "/home/roger/Projects/ksl/src/test/check_coscrew"
+Directory: /home/roger/Projects/ksl/src
+"check_coscrew" start time: Jul 16 12:47 CDT
+Output:
+----------------------------------------------------------
+Running suite(s): coscrew
+100%: Checks: 76, Failures: 0, Errors: 0
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"check_coscrew" end time: Jul 16 12:47 CDT
+"check_coscrew" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/10 Testing: check_inertia
+3/10 Test: check_inertia
+Command: "/home/roger/Projects/ksl/src/test/check_inertia"
+Directory: /home/roger/Projects/ksl/src
+"check_inertia" start time: Jul 16 12:47 CDT
+Output:
+----------------------------------------------------------
+Running suite(s): inertia
+100%: Checks: 1, Failures: 0, Errors: 0
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"check_inertia" end time: Jul 16 12:47 CDT
+"check_inertia" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/10 Testing: check_linalg
+4/10 Test: check_linalg
+Command: "/home/roger/Projects/ksl/src/test/check_linalg"
+Directory: /home/roger/Projects/ksl/src
+"check_linalg" start time: Jul 16 12:47 CDT
+Output:
+----------------------------------------------------------
+Running suite(s): linalg
+100%: Checks: 31, Failures: 0, Errors: 0
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"check_linalg" end time: Jul 16 12:47 CDT
+"check_linalg" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/10 Testing: check_matrix
+5/10 Test: check_matrix
+Command: "/home/roger/Projects/ksl/src/test/check_matrix"
+Directory: /home/roger/Projects/ksl/src
+"check_matrix" start time: Jul 16 12:47 CDT
+Output:
+----------------------------------------------------------
+Running suite(s): matrix
+100%: Checks: 134, Failures: 0, Errors: 0
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"check_matrix" end time: Jul 16 12:47 CDT
+"check_matrix" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/10 Testing: check_quaternion
+6/10 Test: check_quaternion
+Command: "/home/roger/Projects/ksl/src/test/check_quaternion"
+Directory: /home/roger/Projects/ksl/src
+"check_quaternion" start time: Jul 16 12:47 CDT
+Output:
+----------------------------------------------------------
+Running suite(s): quaternion
+100%: Checks: 110, Failures: 0, Errors: 0
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"check_quaternion" end time: Jul 16 12:47 CDT
+"check_quaternion" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/10 Testing: check_screw
+7/10 Test: check_screw
+Command: "/home/roger/Projects/ksl/src/test/check_screw"
+Directory: /home/roger/Projects/ksl/src
+"check_screw" start time: Jul 16 12:47 CDT
+Output:
+----------------------------------------------------------
+Running suite(s): screw
+100%: Checks: 78, Failures: 0, Errors: 0
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"check_screw" end time: Jul 16 12:47 CDT
+"check_screw" time elapsed: 00:00:00
+----------------------------------------------------------
+
+8/10 Testing: check_util
+8/10 Test: check_util
+Command: "/home/roger/Projects/ksl/src/test/check_util"
+Directory: /home/roger/Projects/ksl/src
+"check_util" start time: Jul 16 12:47 CDT
+Output:
+----------------------------------------------------------
+Running suite(s): util
+100%: Checks: 1, Failures: 0, Errors: 0
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"check_util" end time: Jul 16 12:47 CDT
+"check_util" time elapsed: 00:00:00
+----------------------------------------------------------
+
+9/10 Testing: check_vector
+9/10 Test: check_vector
+Command: "/home/roger/Projects/ksl/src/test/check_vector"
+Directory: /home/roger/Projects/ksl/src
+"check_vector" start time: Jul 16 12:47 CDT
+Output:
+----------------------------------------------------------
+Running suite(s): vector
+100%: Checks: 73, Failures: 0, Errors: 0
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"check_vector" end time: Jul 16 12:47 CDT
+"check_vector" time elapsed: 00:00:00
+----------------------------------------------------------
+
+10/10 Testing: check_print
+10/10 Test: check_print
+Command: "/home/roger/Projects/ksl/src/test/check_print"
+Directory: /home/roger/Projects/ksl/src
+"check_print" start time: Jul 16 12:47 CDT
+Output:
+----------------------------------------------------------
+Running suite(s): print
+100%: Checks: 19, Failures: 0, Errors: 0
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"check_print" end time: Jul 16 12:47 CDT
+"check_print" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Jul 16 12:47 CDT

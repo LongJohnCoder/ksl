@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/roger/Projects/ksl/test/check_axis.c
+config.h
+-
+check.h
+-
+stdlib.h
+-
+axis.h
+/home/roger/Projects/ksl/test/axis.h
+
+axis.h
+vector.h
+vector.h
+
+config.h
+
+vector.h
+

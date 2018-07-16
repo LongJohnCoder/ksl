@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/roger/Projects/ksl/test/check_vector.c
+config.h
+-
+stdlib.h
+-
+assert.h
+-
+check.h
+-
+float.h
+-
+stdio.h
+-
+time.h
+-
+util.h
+/home/roger/Projects/ksl/test/util.h
+vector.h
+/home/roger/Projects/ksl/test/vector.h
+
+config.h
+
+util.h
+math.h
+-
+stdbool.h
+-
+stdio.h
+-
+string.h
+-
+
+vector.h
+

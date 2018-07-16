@@ -123,7 +123,7 @@ typedef union ksl_mat4x4_t {
 @brief general 4x4 double precision matrix
 
 allow accessing mat4x4 quantities by field name or
-using at / as_array operators.  if using the at / as_array operators,
+using at / as_array operators.  If using the at / as_array operators,
 quantities are accessed in column major order
 */
 typedef union ksl_mat4x4f_t {
@@ -150,11 +150,11 @@ typedef union ksl_mat4x4f_t {
 
 /*!
 @brief SE3 (3 Dimensional Special Euclidian group) consists of a
-SO3 (othonormalized 3x3 rotation matrix) and translation vector pair
+SO3 (othonormalized 3x3 rotation matrix) and translation vector pair.
 
-if using the at/as_array operators,
+If using the at/as_array operators,
 quantities are accessed in column major order with Rotation matrix
-quantities coming first, followed by translation vector
+quantities coming first, followed by translation vector.
 */
 typedef union ksl_SE3_t {
   double as_array[12]; /*!< allows accessing quantities at specified index in
@@ -186,11 +186,11 @@ typedef union ksl_SE3_t {
 /*!
 @brief Single precision member of 3 Dimensional Special Euclidian group (SE3)
 consisting of a single precision SO3 (othonormalized 3x3 rotation matrix) and
-single precision translation vector pair
+single precision translation vector pair.
 
-if using the at/as_array operators,
+If using the at/as_array operators,
 quantities are accessed in column major order with Rotation matrix
-quantities coming first, followed by translation vector
+quantities coming first, followed by translation vector.
 */
 typedef union ksl_SE3f_t {
   float as_array[12]; /*!< allows accessing quantities at specified index in
@@ -223,7 +223,9 @@ typedef union ksl_SE3f_t {
 @brief ksl_SE3_t constructor.
 
 Note that in the constructor, fields are specified in row major order.
-Internally, ksl_SE3_t datastructures are stored in column major order.
+Internally, ksl_SE3_t datastructures are stored in column major order. Row major
+order cuts across the rotation and translation matrices, so m03, m13, and m23
+represent entries in the translational part of SE3.
 */
 ksl_SE3_t ksl_SE3(const double m00, const double m01, const double m02,
                   const double m03, const double m10, const double m11,
@@ -251,7 +253,9 @@ ksl_SE3_t ksl_SE3_fromRt(const ksl_mat3x3_t R, const ksl_vec3_t t);
 @brief ksl_SE3f_t constructor.
 
 Note that in the constructor, fields are specified in row major order.
-Internally, ksl_SE3f_t datastructures are stored in column major order.
+Internally, ksl_SE3f_t datastructures are stored in column major order. Row
+major order cuts across the rotation and translation matrices, so m03, m13, and
+m23 represent entries in the translational part of SE3.
 */
 ksl_SE3f_t ksl_SE3f(const float m00, const float m01, const float m02,
                     const float m03, const float m10, const float m11,

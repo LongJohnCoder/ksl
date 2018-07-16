@@ -1,0 +1,34 @@
+Running suite linalg
+/home/roger/Projects/ksl/test/check_linalg.c:36:P:core:test_swap_unit_stride:0: Passed
+/home/roger/Projects/ksl/test/check_linalg.c:64:P:core:test_swap_nonunit_stride:0: Passed
+/home/roger/Projects/ksl/test/check_linalg.c:74:P:core:test_maxIndex:0: Passed
+/home/roger/Projects/ksl/test/check_linalg.c:131:P:core:test_linalg_lu_full_rmo:0: Passed
+/home/roger/Projects/ksl/test/check_linalg.c:198:P:core:test_linalg_lu_full_specified_rmo:0: Passed
+/home/roger/Projects/ksl/test/check_linalg.c:239:P:core:test_linalg_lu_rmo:0: Passed
+/home/roger/Projects/ksl/test/check_linalg.c:276:P:core:test_linalg_lu_setBMatrix_rmo:0: Passed
+/home/roger/Projects/ksl/test/check_linalg.c:311:P:core:test_linalg_lu_setCMatrix_rmo:0: Passed
+/home/roger/Projects/ksl/test/check_linalg.c:340:P:core:test_linalg_ldlt_rmo:0: Passed
+/home/roger/Projects/ksl/test/check_linalg.c:382:P:core:test_linalg_cholesky_rmo:0: Passed
+/home/roger/Projects/ksl/test/check_linalg.c:404:P:core:test_linalg_ldlt_forwardElimination_rmo:0: Passed
+/home/roger/Projects/ksl/test/check_linalg.c:426:P:core:test_linalg_ldlt_backwardSubstitution_rmo:0: Passed
+/home/roger/Projects/ksl/test/check_linalg.c:461:P:core:test_linalg_cholesky_forwardElimination_rmo:0: Passed
+/home/roger/Projects/ksl/test/check_linalg.c:496:P:core:test_linalg_cholesky_backwardSubstitution_rmo:0: Passed
+/home/roger/Projects/ksl/test/check_linalg.c:518:P:core:test_linalg_ldlt_solve_rmo:0: Passed
+/home/roger/Projects/ksl/test/check_linalg.c:552:P:core:test_linalg_cholesky_solve_rmo:0: Passed
+/home/roger/Projects/ksl/test/check_linalg.c:581:P:core:test_linalg_symmetricMatrixInverse_rmo:0: Passed
+/home/roger/Projects/ksl/test/check_linalg.c:623:P:core:test_linalg_lu_full_cmo:0: Passed
+/home/roger/Projects/ksl/test/check_linalg.c:665:P:core:test_linalg_lu_full_specified_cmo:0: Passed
+/home/roger/Projects/ksl/test/check_linalg.c:695:P:core:test_linalg_lu_cmo:0: Passed
+/home/roger/Projects/ksl/test/check_linalg.c:742:P:core:test_linalg_lu_setBMatrix_cmo:0: Passed
+/home/roger/Projects/ksl/test/check_linalg.c:777:P:core:test_linalg_lu_setCMatrix_cmo:0: Passed
+/home/roger/Projects/ksl/test/check_linalg.c:806:P:core:test_linalg_ldlt_cmo:0: Passed
+/home/roger/Projects/ksl/test/check_linalg.c:848:P:core:test_linalg_cholesky_cmo:0: Passed
+/home/roger/Projects/ksl/test/check_linalg.c:869:P:core:test_linalg_ldlt_forwardElimination_cmo:0: Passed
+/home/roger/Projects/ksl/test/check_linalg.c:890:P:core:test_linalg_ldlt_backwardSubstitution_cmo:0: Passed
+/home/roger/Projects/ksl/test/check_linalg.c:924:P:core:test_linalg_cholesky_forwardElimination_cmo:0: Passed
+/home/roger/Projects/ksl/test/check_linalg.c:959:P:core:test_linalg_cholesky_backwardSubstitution_cmo:0: Passed
+/home/roger/Projects/ksl/test/check_linalg.c:981:P:core:test_linalg_ldlt_solve_cmo:0: Passed
+/home/roger/Projects/ksl/test/check_linalg.c:1015:P:core:test_linalg_cholesky_solve_cmo:0: Passed
+/home/roger/Projects/ksl/test/check_linalg.c:1044:P:core:test_linalg_symmetricMatrixInverse_cmo:0: Passed
+Results for all suites run:
+100%: Checks: 31, Failures: 0, Errors: 0
